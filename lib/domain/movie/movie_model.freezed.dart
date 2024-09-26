@@ -22,13 +22,13 @@ Movie _$MovieFromJson(Map<String, dynamic> json) {
 mixin _$Movie {
   int get id => throw _privateConstructorUsedError;
   @JsonKey(name: AppConstants.backdropPath)
-  String get backdropPath => throw _privateConstructorUsedError;
+  String? get backdropPath => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   @JsonKey(name: AppConstants.originalTitle)
   String get originalTitle => throw _privateConstructorUsedError;
   String get overview => throw _privateConstructorUsedError;
   @JsonKey(name: AppConstants.posterPath)
-  String get posterPath => throw _privateConstructorUsedError;
+  String? get posterPath => throw _privateConstructorUsedError;
   @JsonKey(name: AppConstants.genreIds)
   List<int> get genreIds => throw _privateConstructorUsedError;
   double get popularity => throw _privateConstructorUsedError;
@@ -55,11 +55,11 @@ abstract class $MovieCopyWith<$Res> {
   @useResult
   $Res call(
       {int id,
-      @JsonKey(name: AppConstants.backdropPath) String backdropPath,
+      @JsonKey(name: AppConstants.backdropPath) String? backdropPath,
       String title,
       @JsonKey(name: AppConstants.originalTitle) String originalTitle,
       String overview,
-      @JsonKey(name: AppConstants.posterPath) String posterPath,
+      @JsonKey(name: AppConstants.posterPath) String? posterPath,
       @JsonKey(name: AppConstants.genreIds) List<int> genreIds,
       double popularity,
       @JsonKey(name: AppConstants.releaseDate) DateTime releaseDate,
@@ -83,11 +83,11 @@ class _$MovieCopyWithImpl<$Res, $Val extends Movie>
   @override
   $Res call({
     Object? id = null,
-    Object? backdropPath = null,
+    Object? backdropPath = freezed,
     Object? title = null,
     Object? originalTitle = null,
     Object? overview = null,
-    Object? posterPath = null,
+    Object? posterPath = freezed,
     Object? genreIds = null,
     Object? popularity = null,
     Object? releaseDate = null,
@@ -99,10 +99,10 @@ class _$MovieCopyWithImpl<$Res, $Val extends Movie>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
-      backdropPath: null == backdropPath
+      backdropPath: freezed == backdropPath
           ? _value.backdropPath
           : backdropPath // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -115,10 +115,10 @@ class _$MovieCopyWithImpl<$Res, $Val extends Movie>
           ? _value.overview
           : overview // ignore: cast_nullable_to_non_nullable
               as String,
-      posterPath: null == posterPath
+      posterPath: freezed == posterPath
           ? _value.posterPath
           : posterPath // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       genreIds: null == genreIds
           ? _value.genreIds
           : genreIds // ignore: cast_nullable_to_non_nullable
@@ -152,11 +152,11 @@ abstract class _$$MovieImplCopyWith<$Res> implements $MovieCopyWith<$Res> {
   @useResult
   $Res call(
       {int id,
-      @JsonKey(name: AppConstants.backdropPath) String backdropPath,
+      @JsonKey(name: AppConstants.backdropPath) String? backdropPath,
       String title,
       @JsonKey(name: AppConstants.originalTitle) String originalTitle,
       String overview,
-      @JsonKey(name: AppConstants.posterPath) String posterPath,
+      @JsonKey(name: AppConstants.posterPath) String? posterPath,
       @JsonKey(name: AppConstants.genreIds) List<int> genreIds,
       double popularity,
       @JsonKey(name: AppConstants.releaseDate) DateTime releaseDate,
@@ -178,11 +178,11 @@ class __$$MovieImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
-    Object? backdropPath = null,
+    Object? backdropPath = freezed,
     Object? title = null,
     Object? originalTitle = null,
     Object? overview = null,
-    Object? posterPath = null,
+    Object? posterPath = freezed,
     Object? genreIds = null,
     Object? popularity = null,
     Object? releaseDate = null,
@@ -194,10 +194,10 @@ class __$$MovieImplCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
-      backdropPath: null == backdropPath
+      backdropPath: freezed == backdropPath
           ? _value.backdropPath
           : backdropPath // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -210,10 +210,10 @@ class __$$MovieImplCopyWithImpl<$Res>
           ? _value.overview
           : overview // ignore: cast_nullable_to_non_nullable
               as String,
-      posterPath: null == posterPath
+      posterPath: freezed == posterPath
           ? _value.posterPath
           : posterPath // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       genreIds: null == genreIds
           ? _value._genreIds
           : genreIds // ignore: cast_nullable_to_non_nullable
@@ -262,7 +262,7 @@ class _$MovieImpl implements _Movie {
   final int id;
   @override
   @JsonKey(name: AppConstants.backdropPath)
-  final String backdropPath;
+  final String? backdropPath;
   @override
   final String title;
   @override
@@ -272,7 +272,7 @@ class _$MovieImpl implements _Movie {
   final String overview;
   @override
   @JsonKey(name: AppConstants.posterPath)
-  final String posterPath;
+  final String? posterPath;
   final List<int> _genreIds;
   @override
   @JsonKey(name: AppConstants.genreIds)
@@ -361,12 +361,12 @@ abstract class _Movie implements Movie {
   const factory _Movie(
       {required final int id,
       @JsonKey(name: AppConstants.backdropPath)
-      required final String backdropPath,
+      required final String? backdropPath,
       required final String title,
       @JsonKey(name: AppConstants.originalTitle)
       required final String originalTitle,
       required final String overview,
-      @JsonKey(name: AppConstants.posterPath) required final String posterPath,
+      @JsonKey(name: AppConstants.posterPath) required final String? posterPath,
       @JsonKey(name: AppConstants.genreIds) required final List<int> genreIds,
       required final double popularity,
       @JsonKey(name: AppConstants.releaseDate)
@@ -382,7 +382,7 @@ abstract class _Movie implements Movie {
   int get id;
   @override
   @JsonKey(name: AppConstants.backdropPath)
-  String get backdropPath;
+  String? get backdropPath;
   @override
   String get title;
   @override
@@ -392,7 +392,7 @@ abstract class _Movie implements Movie {
   String get overview;
   @override
   @JsonKey(name: AppConstants.posterPath)
-  String get posterPath;
+  String? get posterPath;
   @override
   @JsonKey(name: AppConstants.genreIds)
   List<int> get genreIds;

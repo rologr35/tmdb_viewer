@@ -28,7 +28,7 @@ mixin _$Actor {
   @JsonKey(name: AppConstants.originalName)
   String get originalName => throw _privateConstructorUsedError;
   @JsonKey(name: AppConstants.profilePath)
-  String get profilePath => throw _privateConstructorUsedError;
+  String? get profilePath => throw _privateConstructorUsedError;
   String get character => throw _privateConstructorUsedError;
 
   /// Serializes this Actor to a JSON map.
@@ -51,7 +51,7 @@ abstract class $ActorCopyWith<$Res> {
       @JsonKey(name: AppConstants.castId) int castId,
       String name,
       @JsonKey(name: AppConstants.originalName) String originalName,
-      @JsonKey(name: AppConstants.profilePath) String profilePath,
+      @JsonKey(name: AppConstants.profilePath) String? profilePath,
       String character});
 }
 
@@ -75,7 +75,7 @@ class _$ActorCopyWithImpl<$Res, $Val extends Actor>
     Object? castId = null,
     Object? name = null,
     Object? originalName = null,
-    Object? profilePath = null,
+    Object? profilePath = freezed,
     Object? character = null,
   }) {
     return _then(_value.copyWith(
@@ -99,10 +99,10 @@ class _$ActorCopyWithImpl<$Res, $Val extends Actor>
           ? _value.originalName
           : originalName // ignore: cast_nullable_to_non_nullable
               as String,
-      profilePath: null == profilePath
+      profilePath: freezed == profilePath
           ? _value.profilePath
           : profilePath // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       character: null == character
           ? _value.character
           : character // ignore: cast_nullable_to_non_nullable
@@ -124,7 +124,7 @@ abstract class _$$ActorImplCopyWith<$Res> implements $ActorCopyWith<$Res> {
       @JsonKey(name: AppConstants.castId) int castId,
       String name,
       @JsonKey(name: AppConstants.originalName) String originalName,
-      @JsonKey(name: AppConstants.profilePath) String profilePath,
+      @JsonKey(name: AppConstants.profilePath) String? profilePath,
       String character});
 }
 
@@ -146,7 +146,7 @@ class __$$ActorImplCopyWithImpl<$Res>
     Object? castId = null,
     Object? name = null,
     Object? originalName = null,
-    Object? profilePath = null,
+    Object? profilePath = freezed,
     Object? character = null,
   }) {
     return _then(_$ActorImpl(
@@ -170,10 +170,10 @@ class __$$ActorImplCopyWithImpl<$Res>
           ? _value.originalName
           : originalName // ignore: cast_nullable_to_non_nullable
               as String,
-      profilePath: null == profilePath
+      profilePath: freezed == profilePath
           ? _value.profilePath
           : profilePath // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       character: null == character
           ? _value.character
           : character // ignore: cast_nullable_to_non_nullable
@@ -211,7 +211,7 @@ class _$ActorImpl implements _Actor {
   final String originalName;
   @override
   @JsonKey(name: AppConstants.profilePath)
-  final String profilePath;
+  final String? profilePath;
   @override
   final String character;
 
@@ -267,7 +267,7 @@ abstract class _Actor implements Actor {
       @JsonKey(name: AppConstants.originalName)
       required final String originalName,
       @JsonKey(name: AppConstants.profilePath)
-      required final String profilePath,
+      required final String? profilePath,
       required final String character}) = _$ActorImpl;
 
   factory _Actor.fromJson(Map<String, dynamic> json) = _$ActorImpl.fromJson;
@@ -286,7 +286,7 @@ abstract class _Actor implements Actor {
   String get originalName;
   @override
   @JsonKey(name: AppConstants.profilePath)
-  String get profilePath;
+  String? get profilePath;
   @override
   String get character;
 

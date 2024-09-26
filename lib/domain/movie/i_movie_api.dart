@@ -13,5 +13,5 @@ abstract class IMovieApi {
 
   Future<List<Movie>> getTopRated(AppLocale locale);
 
-  Future<List<Movie>> getPopular(AppLocale locale);
+  Future<Map<int, List<Movie>>> getPopular(AppLocale locale, {int page});
 }

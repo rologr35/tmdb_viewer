@@ -11,6 +11,7 @@ class TrendingMoviesController extends BaseController {
   final double height = 300;
 
   final RxnDouble position = RxnDouble(0.0);
+  final RxInt dotIndex = 0.obs;
 
   @override
   void onInit() {

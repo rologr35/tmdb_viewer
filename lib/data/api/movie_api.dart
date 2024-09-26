@@ -50,10 +50,12 @@ class MovieApi extends BaseApi implements IMovieApi {
   }
 
   @override
-  Future<List<Movie>> getPopular(AppLocale locale) async {
-    final res = await _networkHandler.get(path: "${Endpoint.popular}?language=${locale.localeCode}");
+  Future<Map<int, List<Movie>>> getPopular(AppLocale locale, {int page = 1}) async {
+    final res = await _networkHandler.get(path: "${Endpoint.popular}?page=$page&language=${locale.localeCode}");
     if(res.statusCode == AppConstants.codeSuccess) {
-      return (res.body['results'] as List<dynamic>).map((e) => Movie.fromJson(e)).toList();
+      return {
+        res.body['total_pages']: (res.body['results'] as List<dynamic>).map((e) => Movie.fromJson(e)).toList()
+      };
     }
     throw serverException(res);
   }

@@ -42,9 +42,9 @@ class MovieRepository extends BaseRepository implements IMovieRepo {
   }
 
   @override
-  Future<Result<List<Movie>>> getPopular(AppLocale locale) async {
+  Future<Result<Map<int, List<Movie>>>> getPopular(AppLocale locale, {int page = 1}) async {
     try {
-      final res = await _movieApi.getPopular(locale);
+      final res = await _movieApi.getPopular(locale, page: page);
       return ResultSuccess(value: res);
     } catch(ex) {
       return resultError(ex);

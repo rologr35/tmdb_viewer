@@ -13,7 +13,7 @@ class Actor with _$Actor {
     @JsonKey(name: AppConstants.castId) required int castId,
     required String name,
     @JsonKey(name: AppConstants.originalName) required String originalName,
-    @JsonKey(name: AppConstants.profilePath) required String profilePath,
+    @JsonKey(name: AppConstants.profilePath) required String? profilePath,
     required String character
   }) = _Actor;
 

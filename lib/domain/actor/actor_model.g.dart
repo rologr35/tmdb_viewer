@@ -12,7 +12,7 @@ _$ActorImpl _$$ActorImplFromJson(Map<String, dynamic> json) => _$ActorImpl(
       castId: (json['cast_id'] as num).toInt(),
       name: json['name'] as String,
       originalName: json['original_name'] as String,
-      profilePath: json['profile_path'] as String,
+      profilePath: json['profile_path'] as String?,
       character: json['character'] as String,
     );
 

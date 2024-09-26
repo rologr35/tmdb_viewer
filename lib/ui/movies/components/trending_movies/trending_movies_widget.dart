@@ -27,14 +27,14 @@ class TrendingMoviesWidget extends GetResponsiveWidget<TrendingMoviesController>
 
   @override
   Widget build(BuildContext context) {
-    return ObxValue<RxInt>((idx) => Column(
+    return Obx(() => Column(
       children: [
         SizedBox(
           height: 450,
           child: PageView.builder(
             controller: controller.pageController,
             onPageChanged: (index) {
-              idx.value = index;
+              controller.dotIndex.value = index;
             },
             itemCount: movies.length > 7 ? 7 : movies.length,
             itemBuilder: (context, index) {
@@ -45,7 +45,7 @@ class TrendingMoviesWidget extends GetResponsiveWidget<TrendingMoviesController>
         const SizedBox(height: 10.0),
         DotsIndicator(
           dotsCount: 7,
-          position: idx.value,
+          position: controller.dotIndex.value,
           decorator: DotsDecorator(
             size: const Size.square(9.0),
             activeColor: AppColors.primary,
@@ -54,7 +54,7 @@ class TrendingMoviesWidget extends GetResponsiveWidget<TrendingMoviesController>
           ),
         ),
       ],
-    ), 0.obs);
+    ));
   }
 
 
@@ -97,7 +97,7 @@ class TrendingMoviesWidget extends GetResponsiveWidget<TrendingMoviesController>
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(30.0),
               image: DecorationImage(
-                image: movies[index].backdropPath.isEmpty ? const AssetImage(AppImages.splashLogo) : CachedNetworkImageProvider("${Endpoint.imageUrl780}${movies[index].backdropPath}", headers: const {
+                image: movies[index].backdropPath.isNullOrEmpty() ? const AssetImage(AppImages.splashLogo) : CachedNetworkImageProvider("${Endpoint.imageUrl780}${movies[index].backdropPath}", headers: const {
                   "Authorization": "Bearer ${AppConstants.authToken}"
                 }, errorListener: (err) {
                   Logger.log(err);

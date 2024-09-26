@@ -9,11 +9,11 @@ part 'movie_model.g.dart';
 class Movie with _$Movie {
   const factory Movie({
     required int id,
-    @JsonKey(name: AppConstants.backdropPath) required String backdropPath,
+    @JsonKey(name: AppConstants.backdropPath) required String? backdropPath,
     required String title,
     @JsonKey(name: AppConstants.originalTitle) required String originalTitle,
     required String overview,
-    @JsonKey(name: AppConstants.posterPath) required String posterPath,
+    @JsonKey(name: AppConstants.posterPath) required String? posterPath,
     @JsonKey(name: AppConstants.genreIds) required List<int> genreIds,
     required double popularity,
     @JsonKey(name: AppConstants.releaseDate) required DateTime releaseDate,

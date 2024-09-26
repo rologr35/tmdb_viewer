@@ -37,25 +37,23 @@ class HomePage extends GetResponsiveView<HomeController> {
         bottomBar: IndexedRouteBuilder(
             builder: (context, routes, index) {
               final delegate = context.delegate;
-              return ObxValue<RxInt>(
-                  (v) => BottomNavigationBar(
-                        items: bottomNavItems,
-                        currentIndex: v.value,
-                        selectedItemColor: AppColors.primary,
-                        selectedFontSize: 12,
-                        unselectedFontSize: 12,
-                        selectedIconTheme:
-                            const IconThemeData(color: AppColors.primary),
-                        type: BottomNavigationBarType.fixed,
-                        backgroundColor:
-                            isDarkMode ? AppColors.grayElementsDark : AppColors.grayLightest,
-                        showUnselectedLabels: true,
-                        onTap: (value) {
-                          delegate.toNamed(routes[value], arguments: Get.arguments);
-                          v.value = value;
-                        },
-                      ),
-                  0.obs);
+              return Obx(() => BottomNavigationBar(
+                items: bottomNavItems,
+                currentIndex: controller.currentIndex.value,
+                selectedItemColor: AppColors.primary,
+                selectedFontSize: 12,
+                unselectedFontSize: 12,
+                selectedIconTheme:
+                const IconThemeData(color: AppColors.primary),
+                type: BottomNavigationBarType.fixed,
+                backgroundColor:
+                isDarkMode ? AppColors.grayElementsDark : AppColors.grayLightest,
+                showUnselectedLabels: true,
+                onTap: (value) {
+                  delegate.toNamed(routes[value], arguments: Get.arguments);
+                  controller.currentIndex.value = value;
+                },
+              ));
             },
             routes: [
               AppPages.instance.movies,

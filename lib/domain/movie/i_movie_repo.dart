@@ -15,5 +15,5 @@ abstract class IMovieRepo {
 
   Future<Result<List<Movie>>> getTopRated(AppLocale locale);
 
-  Future<Result<List<Movie>>> getPopular(AppLocale locale);
+  Future<Result<Map<int, List<Movie>>>> getPopular(AppLocale locale, {int page});
 }

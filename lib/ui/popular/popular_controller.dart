@@ -21,32 +21,53 @@ class PopularController extends BaseController with LoadingHandler {
 
   late List<Genre> movieGenres;
 
+  int currentPage = 0;
+  int totalPages = 0;
+
   @override
   void onInit() {
     super.onInit();
-    _loadPopularMovies();
+    loadPopularMovies(refreshing: false);
     movieGenres = Get.arguments[AppConstants.genres];
   }
 
-  void _loadPopularMovies() async {
-    popularMovies.value = List.filled(20, Movie(
-        id: math.Random().nextInt(7),
-        backdropPath: '',
-        genreIds: [],
-        originalTitle: '',
-        overview: BoneMock.subtitle,
-        popularity: 0.0,
-        posterPath: '',
-        releaseDate: DateTime.now(),
-        title: BoneMock.title,
-        voteAverage: 0.0,
-        voteCount: 0
-    ));
-    isLoading = true;
-    final res = await _movieRepo.getTrendingMovies(AppConfig.locale);
-    if(res is ResultSuccess<List<Movie>>) {
-      popularMovies.value = res.value;
+  Future<void> loadPopularMovies({bool refreshing = true}) async {
+    if(!refreshing) {
+      popularMovies.value = List.filled(20, Movie(
+          id: math.Random().nextInt(7),
+          backdropPath: '',
+          genreIds: [],
+          originalTitle: '',
+          overview: BoneMock.subtitle,
+          popularity: 0.0,
+          posterPath: '',
+          releaseDate: DateTime.now(),
+          title: BoneMock.title,
+          voteAverage: 0.0,
+          voteCount: 0
+      ));
+      isLoading = true;
+    } else {
+      totalPages = 0;
+      currentPage = 0;
     }
-    isLoading = false;
+    final res = await _movieRepo.getPopular(AppConfig.locale, page: currentPage + 1);
+    if(res is ResultSuccess<Map<int, List<Movie>>>) {
+      currentPage++;
+      totalPages = res.value.keys.first;
+      popularMovies.value = res.value.values.first;
+    }
+    if(!refreshing) isLoading = false;
+  }
+
+  Future<void> loadMore() async {
+    if(currentPage < totalPages) {
+      final res = await _movieRepo.getPopular(AppConfig.locale, page: currentPage + 1);
+      if(res is ResultSuccess<Map<int, List<Movie>>>) {
+        currentPage++;
+        popularMovies.addAll(res.value.values.first);
+        popularMovies.refresh();
+      }
+    }
   }
 }
