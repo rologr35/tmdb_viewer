@@ -46,7 +46,8 @@ class MoviesPage extends GetResponsiveView<MoviesController> {
                     ),
                     MoviesCarrouselWidget(
                         movies: controller.upcomingMovies,
-                        title: R.string.comingSoon),
+                        title: R.string.comingSoon,
+                        icon: Icons.calendar_month),
                     const SizedBox(
                       height: 30,
                     ),

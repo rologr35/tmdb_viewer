@@ -10,9 +10,11 @@ class TXCachedNetworkImage extends StatelessWidget {
   final Widget placeholder;
   final double height;
   final double width;
+  final BlendMode? blendMode;
+  final Color? color;
 
   const TXCachedNetworkImage(
-      {super.key, this.imageUrl = '', this.fit = BoxFit.cover, required this.placeholder, this.height = double.infinity, this.width = double.infinity});
+      {super.key, this.imageUrl = '', this.color, this.blendMode, this.fit = BoxFit.cover, required this.placeholder, this.height = double.infinity, this.width = double.infinity});
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +23,8 @@ class TXCachedNetworkImage extends StatelessWidget {
       imageUrl: imageUrl,
       height: height,
       width: width,
+      colorBlendMode: blendMode,
+      color: color,
       httpHeaders: const {
         "Authorization": "Bearer ${AppConstants.authToken}"
       },

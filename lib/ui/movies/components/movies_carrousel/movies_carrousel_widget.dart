@@ -6,7 +6,10 @@ import 'package:tmdb_viewer/data/api/_remote/endpoints.dart';
 import 'package:tmdb_viewer/domain/movie/movie_model.dart';
 import 'package:tmdb_viewer/res/values/constants.dart';
 import 'package:tmdb_viewer/res/values/images.dart';
+import 'package:tmdb_viewer/ui/_widgets/tx_cached_image.dart';
 import 'package:tmdb_viewer/utils/extensions.dart';
+
+import '../../../../res/values/colors.dart';
 
 class MoviesCarrouselWidget extends StatelessWidget {
   final String title;
@@ -17,6 +20,7 @@ class MoviesCarrouselWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -24,9 +28,10 @@ class MoviesCarrouselWidget extends StatelessWidget {
           margin: const EdgeInsets.only(left: 15),
           child: Row(
             children: [
-              icon == null ? Container() : const Icon(
-                Icons.play_circle_outline,
+              icon == null ? Container() : Icon(
+                icon!,
                 size: 30,
+                color: AppColors.grayDarkest,
               ),
               SizedBox(
                 width: icon == null ? 0 : 10,
@@ -35,6 +40,7 @@ class MoviesCarrouselWidget extends StatelessWidget {
                 title,
                 style: const TextStyle(
                   fontSize: 20,
+                  color: AppColors.grayDarkest,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -47,23 +53,34 @@ class MoviesCarrouselWidget extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             itemCount: movies.length,
             itemBuilder: (context, index) {
-              return InkWell(
-                onTap: () {
-
-                },
-                child: Container(
-                  margin: const EdgeInsets.only(left: 15, top: 10),
-                  child: Container(
-                    width: 120,
-                    height: 150,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20.0),
-                      image: DecorationImage(
-                        image: movies[index].posterPath.isNullOrEmpty() ? const AssetImage(AppImages.splashLogo) : CachedNetworkImageProvider("${Endpoint.imageUrl500}${movies[index].posterPath}", headers: const {
-                          "Authorization": "Bearer ${AppConstants.authToken}"
-                        }),
-                        fit: BoxFit.cover,
+              return Container(
+                margin: const EdgeInsets.only(left: 15, top: 10),
+                width: 120,
+                height: 150,
+                child: InkWell(
+                  onTap: movies[index].id == -1 ? null : () {},
+                  borderRadius: BorderRadius.circular(20),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: movies[index].posterPath.isNullOrEmpty()
+                        ? Container(
+                        decoration: BoxDecoration(
+                          image: const DecorationImage(
+                              image: AssetImage(AppImages.splashLogo)
+                              , fit: BoxFit.cover),
+                          color: isDarkMode ? AppColors.grayDark : AppColors.grayLight,
+                        )
+                    )
+                        : TXCachedNetworkImage(
+                      placeholder: Container(
+                          decoration: BoxDecoration(
+                            image: const DecorationImage(
+                                image: AssetImage(AppImages.splashLogo)
+                                , fit: BoxFit.cover),
+                            color: isDarkMode ? AppColors.grayDark : AppColors.grayLight,
+                          )
                       ),
+                      imageUrl: "${Endpoint.imageUrl500}${movies[index].posterPath}",
                     ),
                   ),
                 ),

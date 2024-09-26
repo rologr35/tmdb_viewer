@@ -5,7 +5,6 @@ import 'package:skeletonizer/skeletonizer.dart';
 import 'package:tmdb_viewer/domain/movie/i_movie_repo.dart';
 import 'package:tmdb_viewer/ui/_base/_base_controller.dart';
 import 'package:tmdb_viewer/ui/_base/loading_handler.dart';
-import 'dart:math' as math;
 import '../../data/repository/_base/result.dart';
 import '../../domain/genre/genre_model.dart';
 import '../../domain/movie/movie_model.dart';
@@ -34,7 +33,7 @@ class PopularController extends BaseController with LoadingHandler {
   Future<void> loadPopularMovies({bool refreshing = true}) async {
     if(!refreshing) {
       popularMovies.value = List.filled(20, Movie(
-          id: math.Random().nextInt(7),
+          id: -1,
           backdropPath: '',
           genreIds: [],
           originalTitle: '',

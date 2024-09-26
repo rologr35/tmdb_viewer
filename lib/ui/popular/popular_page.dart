@@ -76,7 +76,6 @@ class PopularPage extends GetResponsiveView<PopularController> {
                             image: AssetImage(AppImages.splashLogo)
                             , fit: BoxFit.cover),
                         color: isDarkMode ? AppColors.grayDark : AppColors.grayLight,
-                        borderRadius: BorderRadius.circular(20.0),
                       )
                     )
                         : TXCachedNetworkImage(
@@ -86,7 +85,6 @@ class PopularPage extends GetResponsiveView<PopularController> {
                                 image: AssetImage(AppImages.splashLogo)
                                 , fit: BoxFit.cover),
                             color: isDarkMode ? AppColors.grayDark : AppColors.grayLight,
-                            borderRadius: BorderRadius.circular(20.0),
                           )
                       ),
                       imageUrl: "${Endpoint.imageUrl500}${controller.popularMovies[index].posterPath}",

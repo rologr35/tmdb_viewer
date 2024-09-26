@@ -8,7 +8,6 @@ import 'package:tmdb_viewer/res/values/config.dart';
 import 'package:tmdb_viewer/res/values/constants.dart';
 import 'package:tmdb_viewer/ui/_base/_base_controller.dart';
 import 'package:tmdb_viewer/ui/_base/loading_handler.dart';
-import 'dart:math' as math;
 import '../../domain/genre/genre_model.dart';
 
 class MoviesController extends BaseController  with LoadingHandler{
@@ -33,7 +32,7 @@ class MoviesController extends BaseController  with LoadingHandler{
   void _loadMovies() async {
     isLoading = true;
     trendingMovies.value = List.filled(7, Movie(
-      id: math.Random().nextInt(7),
+      id: -1,
       backdropPath: '',
       genreIds: [],
       originalTitle: '',
@@ -46,7 +45,7 @@ class MoviesController extends BaseController  with LoadingHandler{
       voteCount: 0
     ));
     nowPlayingMovies.value = List.filled(20, Movie(
-        id: math.Random().nextInt(7),
+        id: -1,
         backdropPath: '',
         genreIds: [],
         originalTitle: '',
@@ -59,7 +58,7 @@ class MoviesController extends BaseController  with LoadingHandler{
         voteCount: 0
     ));
     topRatedMovies.value = List.filled(20, Movie(
-        id: math.Random().nextInt(7),
+        id: -1,
         backdropPath: '',
         genreIds: [],
         originalTitle: '',
@@ -72,7 +71,7 @@ class MoviesController extends BaseController  with LoadingHandler{
         voteCount: 0
     ));
     upcomingMovies.value = List.filled(20, Movie(
-        id: math.Random().nextInt(7),
+        id: -1,
         backdropPath: '',
         genreIds: [],
         originalTitle: '',
