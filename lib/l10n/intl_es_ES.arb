@@ -1,0 +1,15 @@
+{
+  "@@locale": "es_ES",
+  "appName": "TMDB Viewer",
+  "badRequest": "Solicitud inválida",
+  "unauthorized": "No autorizado",
+  "forbidden": "Denegado",
+  "notFound": "No encontrado",
+  "conflicts": "Conflicto",
+  "internalServerError": "Error interno de servidor",
+  "noInternetConnection": "No existe conexión a internet",
+  "someErrorOccurs": "Ocurrió un error",
+  "movies": "Películas",
+  "popular": "Populares",
+  "favorites": "Favoritas"
+}
