@@ -169,6 +169,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Playing Now`
+  String get playingNow {
+    return Intl.message(
+      'Playing Now',
+      name: 'playingNow',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Coming Soon`
+  String get comingSoon {
+    return Intl.message(
+      'Coming Soon',
+      name: 'comingSoon',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Top Rated`
+  String get topRated {
+    return Intl.message(
+      'Top Rated',
+      name: 'topRated',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

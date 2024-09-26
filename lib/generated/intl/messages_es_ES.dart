@@ -25,6 +25,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "appName": MessageLookupByLibrary.simpleMessage("TMDB Viewer"),
         "badRequest":
             MessageLookupByLibrary.simpleMessage("Solicitud inválida"),
+        "comingSoon": MessageLookupByLibrary.simpleMessage("Próximamente"),
         "conflicts": MessageLookupByLibrary.simpleMessage("Conflicto"),
         "favorites": MessageLookupByLibrary.simpleMessage("Favoritas"),
         "forbidden": MessageLookupByLibrary.simpleMessage("Denegado"),
@@ -34,9 +35,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "noInternetConnection": MessageLookupByLibrary.simpleMessage(
             "No existe conexión a internet"),
         "notFound": MessageLookupByLibrary.simpleMessage("No encontrado"),
+        "playingNow":
+            MessageLookupByLibrary.simpleMessage("Reproduciendo Ahora"),
         "popular": MessageLookupByLibrary.simpleMessage("Populares"),
         "someErrorOccurs":
             MessageLookupByLibrary.simpleMessage("Ocurrió un error"),
+        "topRated": MessageLookupByLibrary.simpleMessage("Mejores calificadas"),
         "unauthorized": MessageLookupByLibrary.simpleMessage("No autorizado")
       };
 }

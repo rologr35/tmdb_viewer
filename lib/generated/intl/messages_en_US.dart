@@ -24,6 +24,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "appName": MessageLookupByLibrary.simpleMessage("TMDB Viewer"),
         "badRequest": MessageLookupByLibrary.simpleMessage("Bad request"),
+        "comingSoon": MessageLookupByLibrary.simpleMessage("Coming Soon"),
         "conflicts": MessageLookupByLibrary.simpleMessage("Conflicts"),
         "favorites": MessageLookupByLibrary.simpleMessage("Favorites"),
         "forbidden": MessageLookupByLibrary.simpleMessage("Forbidden"),
@@ -33,9 +34,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "noInternetConnection":
             MessageLookupByLibrary.simpleMessage("No internet connection"),
         "notFound": MessageLookupByLibrary.simpleMessage("Not found"),
+        "playingNow": MessageLookupByLibrary.simpleMessage("Playing Now"),
         "popular": MessageLookupByLibrary.simpleMessage("Popular"),
         "someErrorOccurs":
             MessageLookupByLibrary.simpleMessage("Some error occurs"),
+        "topRated": MessageLookupByLibrary.simpleMessage("Top Rated"),
         "unauthorized": MessageLookupByLibrary.simpleMessage("Unauthorized")
       };
 }

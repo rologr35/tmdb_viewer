@@ -1,5 +1,6 @@
 
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:tmdb_viewer/app_config/app_pages/app_pages.dart';
 import 'package:tmdb_viewer/generated/l10n.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +31,7 @@ class TmdbViewerApp extends StatelessWidget {
       },
       localizationsDelegates: const [
         S.delegate,
+        RefreshLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,

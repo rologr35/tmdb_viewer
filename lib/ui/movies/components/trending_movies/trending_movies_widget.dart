@@ -9,6 +9,7 @@ import 'package:tmdb_viewer/data/api/_remote/endpoints.dart';
 import 'package:tmdb_viewer/domain/movie/movie_model.dart';
 import 'package:tmdb_viewer/res/values/colors.dart';
 import 'package:tmdb_viewer/res/values/constants.dart';
+import 'package:tmdb_viewer/res/values/images.dart';
 import 'package:tmdb_viewer/ui/_base/error_handler.dart';
 import 'package:tmdb_viewer/ui/_widgets/tx_cached_image.dart';
 import 'package:tmdb_viewer/ui/_widgets/tx_text_widget.dart';
@@ -96,7 +97,7 @@ class TrendingMoviesWidget extends GetResponsiveWidget<TrendingMoviesController>
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(30.0),
               image: DecorationImage(
-                image: CachedNetworkImageProvider("${Endpoint.imageUrl780}${movies[index].backdropPath}", headers: const {
+                image: movies[index].backdropPath.isEmpty ? const AssetImage(AppImages.splashLogo) : CachedNetworkImageProvider("${Endpoint.imageUrl780}${movies[index].backdropPath}", headers: const {
                   "Authorization": "Bearer ${AppConstants.authToken}"
                 }, errorListener: (err) {
                   Logger.log(err);
@@ -135,11 +136,13 @@ class TrendingMoviesWidget extends GetResponsiveWidget<TrendingMoviesController>
                 const SizedBox(height: 20),
                 TXTextWidget(
                   movies[index].title,
+                  fontWeight: FontWeight.w600,
                   textColor: AppColors.white,
                 ),
                 TXTextWidget(
                   movieDesc.length > 100 ? '${movieDesc.substring(0, 100)}...' : movieDesc,
                   fontSize: 12,
+                  fontWeight: FontWeight.w600,
                   textColor: AppColors.white,
                 ),
                 const SizedBox(height: 20),

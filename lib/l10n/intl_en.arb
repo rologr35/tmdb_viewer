@@ -11,5 +11,8 @@
   "someErrorOccurs": "Some error occurs",
   "movies": "Movies",
   "popular": "Popular",
-  "favorites": "Favorites"
+  "favorites": "Favorites",
+  "playingNow": "Playing Now",
+  "comingSoon": "Coming Soon",
+  "topRated": "Top Rated"
 }

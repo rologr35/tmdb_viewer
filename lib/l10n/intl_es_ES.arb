@@ -11,5 +11,8 @@
   "someErrorOccurs": "Ocurrió un error",
   "movies": "Películas",
   "popular": "Populares",
-  "favorites": "Favoritas"
+  "favorites": "Favoritas",
+  "playingNow": "Reproduciendo Ahora",
+  "comingSoon": "Próximamente",
+  "topRated": "Mejores calificadas"
 }

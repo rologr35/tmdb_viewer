@@ -10,6 +10,8 @@ import 'package:tmdb_viewer/ui/movies/components/movies_carrousel/movies_carrous
 import 'package:tmdb_viewer/ui/movies/components/trending_movies/trending_movies_widget.dart';
 import 'package:tmdb_viewer/ui/movies/movies_controller.dart';
 
+import '../../res/R.dart';
+
 class MoviesPage extends GetResponsiveView<MoviesController> {
   MoviesPage({super.key});
 
@@ -25,26 +27,32 @@ class MoviesPage extends GetResponsiveView<MoviesController> {
           TXIconButtonWidget(
               icon: const Icon(Icons.search, size: 30), onPressed: () {})
         ],
-        body: Obx(() => Skeletonizer(
-            enabled: controller.isLoading,
-            child: SingleChildScrollView(
+        body: Obx(() => SingleChildScrollView(
               padding: const EdgeInsets.symmetric(vertical: 15),
-              child: Column(
-                  children: [
-                    TrendingMoviesWidget(movies: controller.trendingMovies.value),
+              child: Skeletonizer(
+                  enabled: controller.isLoading,
+                  child: Column(children: [
+                    TrendingMoviesWidget(
+                        movies: controller.trendingMovies.value),
                     const SizedBox(
                       height: 30,
                     ),
-                    MoviesCarrouselWidget(movies: controller.nowPlayingMovies, title: 'Playing Now', icon: Icons.play_circle_outline),
+                    MoviesCarrouselWidget(
+                        movies: controller.nowPlayingMovies,
+                        title: R.string.playingNow,
+                        icon: Icons.play_circle_outline),
                     const SizedBox(
                       height: 30,
                     ),
-                    MoviesCarrouselWidget(movies: controller.upcomingMovies, title: 'Coming soon'),
+                    MoviesCarrouselWidget(
+                        movies: controller.upcomingMovies,
+                        title: R.string.comingSoon),
                     const SizedBox(
                       height: 30,
                     ),
-                    MoviesCarrouselWidget(movies: controller.topRatedMovies, title: 'Top Rated'),
-                  ]),
-            ))));
+                    MoviesCarrouselWidget(
+                        movies: controller.topRatedMovies, title: R.string.topRated),
+                  ])),
+            )));
   }
 }

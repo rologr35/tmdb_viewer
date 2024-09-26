@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:tmdb_viewer/data/api/_remote/endpoints.dart';
 import 'package:tmdb_viewer/domain/movie/movie_model.dart';
 import 'package:tmdb_viewer/res/values/constants.dart';
+import 'package:tmdb_viewer/res/values/images.dart';
 
 class MoviesCarrouselWidget extends StatelessWidget {
   final String title;
@@ -57,7 +58,7 @@ class MoviesCarrouselWidget extends StatelessWidget {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20.0),
                       image: DecorationImage(
-                        image: CachedNetworkImageProvider("${Endpoint.imageUrl500}${movies[index].backdropPath}", headers: const {
+                        image: movies[index].posterPath.isEmpty ? const AssetImage(AppImages.splashLogo) : CachedNetworkImageProvider("${Endpoint.imageUrl500}${movies[index].posterPath}", headers: const {
                           "Authorization": "Bearer ${AppConstants.authToken}"
                         }),
                         fit: BoxFit.cover,

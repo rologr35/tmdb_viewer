@@ -1,6 +1,6 @@
 
-
 import 'package:get/get.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 import 'package:tmdb_viewer/data/repository/_base/result.dart';
 import 'package:tmdb_viewer/domain/movie/i_movie_repo.dart';
 import 'package:tmdb_viewer/domain/movie/movie_model.dart';
@@ -8,9 +8,8 @@ import 'package:tmdb_viewer/res/values/config.dart';
 import 'package:tmdb_viewer/res/values/constants.dart';
 import 'package:tmdb_viewer/ui/_base/_base_controller.dart';
 import 'package:tmdb_viewer/ui/_base/loading_handler.dart';
-
+import 'dart:math' as math;
 import '../../domain/genre/genre_model.dart';
-import '../../utils/logger.dart';
 
 class MoviesController extends BaseController  with LoadingHandler{
   final IMovieRepo _movieRepo;
@@ -33,6 +32,58 @@ class MoviesController extends BaseController  with LoadingHandler{
 
   void _loadMovies() async {
     isLoading = true;
+    trendingMovies.value = List.filled(7, Movie(
+      id: math.Random().nextInt(7),
+      backdropPath: '',
+      genreIds: [],
+      originalTitle: '',
+      overview: BoneMock.subtitle,
+      popularity: 0.0,
+      posterPath: '',
+      releaseDate: DateTime.now(),
+      title: BoneMock.title,
+      voteAverage: 0.0,
+      voteCount: 0
+    ));
+    nowPlayingMovies.value = List.filled(20, Movie(
+        id: math.Random().nextInt(7),
+        backdropPath: '',
+        genreIds: [],
+        originalTitle: '',
+        overview: '',
+        popularity: 0.0,
+        posterPath: '',
+        releaseDate: DateTime.now(),
+        title: '',
+        voteAverage: 0.0,
+        voteCount: 0
+    ));
+    topRatedMovies.value = List.filled(20, Movie(
+        id: math.Random().nextInt(7),
+        backdropPath: '',
+        genreIds: [],
+        originalTitle: '',
+        overview: '',
+        popularity: 0.0,
+        posterPath: '',
+        releaseDate: DateTime.now(),
+        title: '',
+        voteAverage: 0.0,
+        voteCount: 0
+    ));
+    upcomingMovies.value = List.filled(20, Movie(
+        id: math.Random().nextInt(7),
+        backdropPath: '',
+        genreIds: [],
+        originalTitle: '',
+        overview: '',
+        popularity: 0.0,
+        posterPath: '',
+        releaseDate: DateTime.now(),
+        title: '',
+        voteAverage: 0.0,
+        voteCount: 0
+    ));
     Future.wait([
       _loadTrendingMovies(),
       _loadNowPlayingMovies(),
