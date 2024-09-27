@@ -1,17 +1,24 @@
 
+import 'package:tmdb_viewer/domain/movie/movie_results.dart';
 import 'package:tmdb_viewer/res/values/config.dart';
 
-import 'movie_model.dart';
+import 'movie_details.dart';
 
 abstract class IMovieApi {
 
-  Future<List<Movie>> getTrendingMovies(AppLocale locale);
+  Future<MovieResults> getTrendingMovies(AppLocale locale, {int page});
 
-  Future<List<Movie>> getNowPlaying(AppLocale locale);
+  Future<MovieResults> getNowPlaying(AppLocale locale, {int page});
 
-  Future<List<Movie>> getComingSoon(AppLocale locale);
+  Future<MovieResults> getComingSoon(AppLocale locale, {int page});
 
-  Future<List<Movie>> getTopRated(AppLocale locale);
+  Future<MovieResults> getTopRated(AppLocale locale, {int page});
 
-  Future<Map<int, List<Movie>>> getPopular(AppLocale locale, {int page});
+  Future<MovieResults> getPopular(AppLocale locale, {int page});
+
+  Future<MovieDetails> getMovieDetails(AppLocale locale, int movieId);
+
+  Future<MovieResults> getMoviesByGenre(AppLocale locale, List<int> genreIds, {int page});
+
+  Future<MovieResults> getMoviesByQuery(AppLocale locale, String query, {int page});
 }

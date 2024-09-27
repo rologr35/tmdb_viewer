@@ -8,6 +8,9 @@ class Endpoint {
   static const comingSoon = "/movie/upcoming";
   static const topRated = "/movie/top_rated";
   static const popular = "/movie/popular";
+  static const search = "/search/movie";
+  static const discover = "/discover/movie";
+  static details(int movieId, String language) => "/movie/$movieId?language=$language";
 
   ///genres
   static const genres = "/genre/movie/list";

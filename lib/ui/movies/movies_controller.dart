@@ -1,9 +1,9 @@
 
 import 'package:get/get.dart';
-import 'package:skeletonizer/skeletonizer.dart';
 import 'package:tmdb_viewer/data/repository/_base/result.dart';
 import 'package:tmdb_viewer/domain/movie/i_movie_repo.dart';
 import 'package:tmdb_viewer/domain/movie/movie_model.dart';
+import 'package:tmdb_viewer/domain/movie/movie_results.dart';
 import 'package:tmdb_viewer/res/values/config.dart';
 import 'package:tmdb_viewer/res/values/constants.dart';
 import 'package:tmdb_viewer/ui/_base/_base_controller.dart';
@@ -29,6 +29,12 @@ class MoviesController extends BaseController  with LoadingHandler{
     movieGenres = Get.arguments[AppConstants.genres];
   }
 
+  @override
+  void onClose() {
+    loadingController.close();
+    super.onClose();
+  }
+
   void _loadMovies() async {
     isLoading = true;
     trendingMovies.value = List.filled(7, Movie(
@@ -36,13 +42,14 @@ class MoviesController extends BaseController  with LoadingHandler{
       backdropPath: '',
       genreIds: [],
       originalTitle: '',
-      overview: BoneMock.subtitle,
+      overview: '',
       popularity: 0.0,
       posterPath: '',
       releaseDate: DateTime.now(),
-      title: BoneMock.title,
+      title: '',
       voteAverage: 0.0,
-      voteCount: 0
+      voteCount: 0,
+        video: false
     ));
     nowPlayingMovies.value = List.filled(20, Movie(
         id: -1,
@@ -55,7 +62,8 @@ class MoviesController extends BaseController  with LoadingHandler{
         releaseDate: DateTime.now(),
         title: '',
         voteAverage: 0.0,
-        voteCount: 0
+        voteCount: 0,
+        video: false
     ));
     topRatedMovies.value = List.filled(20, Movie(
         id: -1,
@@ -68,7 +76,8 @@ class MoviesController extends BaseController  with LoadingHandler{
         releaseDate: DateTime.now(),
         title: '',
         voteAverage: 0.0,
-        voteCount: 0
+        voteCount: 0,
+        video: false
     ));
     upcomingMovies.value = List.filled(20, Movie(
         id: -1,
@@ -81,7 +90,8 @@ class MoviesController extends BaseController  with LoadingHandler{
         releaseDate: DateTime.now(),
         title: '',
         voteAverage: 0.0,
-        voteCount: 0
+        voteCount: 0,
+        video: false
     ));
     Future.wait([
       _loadTrendingMovies(),
@@ -95,29 +105,29 @@ class MoviesController extends BaseController  with LoadingHandler{
 
   Future<void> _loadTrendingMovies() async {
     final res = await _movieRepo.getTrendingMovies(AppConfig.locale);
-    if(res is ResultSuccess<List<Movie>>) {
-      trendingMovies.value = res.value;
+    if(res is ResultSuccess<MovieResults>) {
+      trendingMovies.value = res.value.results;
     }
   }
 
   Future<void> _loadUpcomingMovies() async {
     final res = await _movieRepo.getComingSoon(AppConfig.locale);
-    if(res is ResultSuccess<List<Movie>>) {
-      upcomingMovies.value = res.value;
+    if(res is ResultSuccess<MovieResults>) {
+      upcomingMovies.value = res.value.results;
     }
   }
 
   Future<void> _loadNowPlayingMovies() async {
     final res = await _movieRepo.getNowPlaying(AppConfig.locale);
-    if(res is ResultSuccess<List<Movie>>) {
-      nowPlayingMovies.value = res.value;
+    if(res is ResultSuccess<MovieResults>) {
+      nowPlayingMovies.value = res.value.results;
     }
   }
 
   Future<void> _loadTopRatedMovies() async {
     final res = await _movieRepo.getTopRated(AppConfig.locale);
-    if(res is ResultSuccess<List<Movie>>) {
-      topRatedMovies.value = res.value;
+    if(res is ResultSuccess<MovieResults>) {
+      topRatedMovies.value = res.value.results;
     }
   }
 

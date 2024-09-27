@@ -1,26 +1,50 @@
-import 'package:cached_network_image/cached_network_image.dart';
+
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:skeletonizer/skeletonizer.dart';
 import 'package:tmdb_viewer/data/api/_remote/endpoints.dart';
 import 'package:tmdb_viewer/domain/movie/movie_model.dart';
 import 'package:tmdb_viewer/res/values/colors.dart';
-import 'package:tmdb_viewer/res/values/constants.dart';
 import 'package:tmdb_viewer/res/values/images.dart';
-import 'package:tmdb_viewer/ui/_base/error_handler.dart';
 import 'package:tmdb_viewer/ui/_widgets/tx_cached_image.dart';
 import 'package:tmdb_viewer/ui/_widgets/tx_text_widget.dart';
-import 'package:tmdb_viewer/ui/movies/components/trending_movies/trending_movies_controller.dart';
 import 'package:tmdb_viewer/utils/extensions.dart';
 
-import '../../../../utils/logger.dart';
 
-class TrendingMoviesWidget
-    extends GetResponsiveWidget<TrendingMoviesController> {
+class TrendingMoviesWidget extends StatefulWidget {
   final List<Movie> movies;
 
-  TrendingMoviesWidget({super.key, required this.movies});
+  const TrendingMoviesWidget({super.key, required this.movies});
+
+  @override
+  State<StatefulWidget> createState() => _TrendingMoviesState();
+}
+
+class _TrendingMoviesState extends State<TrendingMoviesWidget> {
+
+  late PageController pageController;
+  final double scaleFactor = 0.8;
+  final double height = 300;
+
+  final RxnDouble position = RxnDouble(0.0);
+  final RxInt dotIndex = 0.obs;
+
+  @override
+  void initState() {
+    super.initState();
+    pageController = PageController(viewportFraction: 0.85, initialPage: dotIndex.value);
+    pageController.addListener(onPageChanged);
+  }
+
+  @override
+  void dispose() {
+    pageController.removeListener(onPageChanged);
+    super.dispose();
+  }
+
+  void onPageChanged() {
+    position.value = pageController.page;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,21 +54,21 @@ class TrendingMoviesWidget
             SizedBox(
               height: 450,
               child: PageView.builder(
-                controller: controller.pageController,
+                controller: pageController,
                 onPageChanged: (index) {
-                  controller.dotIndex.value = index;
+                  dotIndex.value = index;
                 },
-                itemCount: movies.length > 7 ? 7 : movies.length,
+                itemCount: widget.movies.length > 7 ? 7 : widget.movies.length,
                 itemBuilder: (context, index) {
                   return Obx(() => _trendingItemsWidget(
-                      context, index, controller.position.value!, isDarkMode));
+                      context, index, position.value!, isDarkMode));
                 },
               ),
             ),
             const SizedBox(height: 10.0),
             DotsIndicator(
               dotsCount: 7,
-              position: controller.dotIndex.value,
+              position: dotIndex.value,
               decorator: DotsDecorator(
                 size: const Size.square(9.0),
                 activeColor: AppColors.primary,
@@ -59,29 +83,29 @@ class TrendingMoviesWidget
 
   Widget _trendingItemsWidget(
       BuildContext context, int index, double position, bool isDarkMode) {
-    final movieDesc = movies[index].overview;
+    final movieDesc = widget.movies[index].overview;
     Matrix4 matrix = Matrix4.identity();
     if (index == position.floor()) {
-      var currScale = 1 - (position - index) * (1 - controller.scaleFactor);
-      var currTrans = controller.height * (1 - currScale) / 2;
+      var currScale = 1 - (position - index) * (1 - scaleFactor);
+      var currTrans = height * (1 - currScale) / 2;
       matrix = Matrix4.diagonal3Values(1, currScale, 1)
         ..setTranslationRaw(0, currTrans, 0);
     } else if (index == position.floor() + 1) {
-      var currScale = controller.scaleFactor +
-          (position - index + 1) * (1 - controller.scaleFactor);
-      var currTrans = controller.height * (1 - currScale) / 2;
+      var currScale = scaleFactor +
+          (position - index + 1) * (1 - scaleFactor);
+      var currTrans = height * (1 - currScale) / 2;
       matrix = Matrix4.diagonal3Values(1, currScale, 1);
       matrix = Matrix4.diagonal3Values(1, currScale, 1)
         ..setTranslationRaw(0, currTrans, 0);
     } else if (index == position.floor() - 1) {
-      var currScale = 1 - (position - index) * (1 - controller.scaleFactor);
-      var currTrans = controller.height * (1 - currScale) / 2;
+      var currScale = 1 - (position - index) * (1 - scaleFactor);
+      var currTrans = height * (1 - currScale) / 2;
       matrix = Matrix4.diagonal3Values(1, currScale, 1);
       matrix = Matrix4.diagonal3Values(1, currScale, 1)
         ..setTranslationRaw(0, currTrans, 0);
     } else {
       var currScale = 0.8;
-      var currTrans = controller.height * (1 - controller.scaleFactor) / 2;
+      var currTrans = height * (1 - scaleFactor) / 2;
       matrix = Matrix4.diagonal3Values(1, currScale, 1)
         ..setTranslationRaw(1, currTrans, 1);
     }
@@ -89,12 +113,12 @@ class TrendingMoviesWidget
     return Transform(
       transform: matrix,
       child: Card(
-        margin: const EdgeInsets.all(10.0),
+        margin: const EdgeInsets.only(bottom: 10, left: 10, right: 10),
         elevation: 4,
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
         child: InkWell(
-          onTap: movies[index].id == -1 ? null : () {},
+          onTap: widget.movies[index].id == -1 ? null : () {},
           borderRadius: BorderRadius.circular(30.0),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(30.0),
@@ -102,7 +126,7 @@ class TrendingMoviesWidget
               height: 450,
               child: Stack(
                 children: [
-                  movies[index].backdropPath.isNullOrEmpty()
+                  widget.movies[index].backdropPath.isNullOrEmpty()
                       ? Container(
                           decoration: BoxDecoration(
                           image: const DecorationImage(
@@ -123,11 +147,11 @@ class TrendingMoviesWidget
                                 : AppColors.grayLight,
                           )),
                           imageUrl:
-                              "${Endpoint.imageUrl780}${movies[index].backdropPath}",
+                              "${Endpoint.imageUrl780}${widget.movies[index].backdropPath}",
                           color: Colors.black26,
                           blendMode: BlendMode.darken,
                         ),
-                  Padding(
+                  widget.movies[index].id == -1 ? Container() : Padding(
                     padding: const EdgeInsets.all(16),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -146,7 +170,7 @@ class TrendingMoviesWidget
                               const Icon(Icons.star,
                                   color: AppColors.white, size: 13),
                               TXTextWidget(
-                                (movies[index].voteAverage).toStringAsFixed(1),
+                                (widget.movies[index].voteAverage).toStringAsFixed(1),
                                 textColor: AppColors.white,
                                 fontSize: 12,
                                 fontWeight: FontWeight.bold,
@@ -156,7 +180,7 @@ class TrendingMoviesWidget
                         ),
                         const SizedBox(height: 20),
                         TXTextWidget(
-                          movies[index].title,
+                          widget.movies[index].title,
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
                           textColor: AppColors.white,

@@ -32,8 +32,10 @@ mixin _$Movie {
   @JsonKey(name: AppConstants.genreIds)
   List<int> get genreIds => throw _privateConstructorUsedError;
   double get popularity => throw _privateConstructorUsedError;
+  bool get video => throw _privateConstructorUsedError;
   @JsonKey(name: AppConstants.releaseDate)
-  DateTime get releaseDate => throw _privateConstructorUsedError;
+  @DateTimeConverter()
+  DateTime? get releaseDate => throw _privateConstructorUsedError;
   @JsonKey(name: AppConstants.voteAverage)
   double get voteAverage => throw _privateConstructorUsedError;
   @JsonKey(name: AppConstants.voteCount)
@@ -62,7 +64,10 @@ abstract class $MovieCopyWith<$Res> {
       @JsonKey(name: AppConstants.posterPath) String? posterPath,
       @JsonKey(name: AppConstants.genreIds) List<int> genreIds,
       double popularity,
-      @JsonKey(name: AppConstants.releaseDate) DateTime releaseDate,
+      bool video,
+      @JsonKey(name: AppConstants.releaseDate)
+      @DateTimeConverter()
+      DateTime? releaseDate,
       @JsonKey(name: AppConstants.voteAverage) double voteAverage,
       @JsonKey(name: AppConstants.voteCount) int voteCount});
 }
@@ -90,7 +95,8 @@ class _$MovieCopyWithImpl<$Res, $Val extends Movie>
     Object? posterPath = freezed,
     Object? genreIds = null,
     Object? popularity = null,
-    Object? releaseDate = null,
+    Object? video = null,
+    Object? releaseDate = freezed,
     Object? voteAverage = null,
     Object? voteCount = null,
   }) {
@@ -127,10 +133,14 @@ class _$MovieCopyWithImpl<$Res, $Val extends Movie>
           ? _value.popularity
           : popularity // ignore: cast_nullable_to_non_nullable
               as double,
-      releaseDate: null == releaseDate
+      video: null == video
+          ? _value.video
+          : video // ignore: cast_nullable_to_non_nullable
+              as bool,
+      releaseDate: freezed == releaseDate
           ? _value.releaseDate
           : releaseDate // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as DateTime?,
       voteAverage: null == voteAverage
           ? _value.voteAverage
           : voteAverage // ignore: cast_nullable_to_non_nullable
@@ -159,7 +169,10 @@ abstract class _$$MovieImplCopyWith<$Res> implements $MovieCopyWith<$Res> {
       @JsonKey(name: AppConstants.posterPath) String? posterPath,
       @JsonKey(name: AppConstants.genreIds) List<int> genreIds,
       double popularity,
-      @JsonKey(name: AppConstants.releaseDate) DateTime releaseDate,
+      bool video,
+      @JsonKey(name: AppConstants.releaseDate)
+      @DateTimeConverter()
+      DateTime? releaseDate,
       @JsonKey(name: AppConstants.voteAverage) double voteAverage,
       @JsonKey(name: AppConstants.voteCount) int voteCount});
 }
@@ -185,7 +198,8 @@ class __$$MovieImplCopyWithImpl<$Res>
     Object? posterPath = freezed,
     Object? genreIds = null,
     Object? popularity = null,
-    Object? releaseDate = null,
+    Object? video = null,
+    Object? releaseDate = freezed,
     Object? voteAverage = null,
     Object? voteCount = null,
   }) {
@@ -222,10 +236,14 @@ class __$$MovieImplCopyWithImpl<$Res>
           ? _value.popularity
           : popularity // ignore: cast_nullable_to_non_nullable
               as double,
-      releaseDate: null == releaseDate
+      video: null == video
+          ? _value.video
+          : video // ignore: cast_nullable_to_non_nullable
+              as bool,
+      releaseDate: freezed == releaseDate
           ? _value.releaseDate
           : releaseDate // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as DateTime?,
       voteAverage: null == voteAverage
           ? _value.voteAverage
           : voteAverage // ignore: cast_nullable_to_non_nullable
@@ -250,7 +268,10 @@ class _$MovieImpl implements _Movie {
       @JsonKey(name: AppConstants.posterPath) required this.posterPath,
       @JsonKey(name: AppConstants.genreIds) required final List<int> genreIds,
       required this.popularity,
-      @JsonKey(name: AppConstants.releaseDate) required this.releaseDate,
+      required this.video,
+      @JsonKey(name: AppConstants.releaseDate)
+      @DateTimeConverter()
+      required this.releaseDate,
       @JsonKey(name: AppConstants.voteAverage) required this.voteAverage,
       @JsonKey(name: AppConstants.voteCount) required this.voteCount})
       : _genreIds = genreIds;
@@ -285,8 +306,11 @@ class _$MovieImpl implements _Movie {
   @override
   final double popularity;
   @override
+  final bool video;
+  @override
   @JsonKey(name: AppConstants.releaseDate)
-  final DateTime releaseDate;
+  @DateTimeConverter()
+  final DateTime? releaseDate;
   @override
   @JsonKey(name: AppConstants.voteAverage)
   final double voteAverage;
@@ -296,7 +320,7 @@ class _$MovieImpl implements _Movie {
 
   @override
   String toString() {
-    return 'Movie(id: $id, backdropPath: $backdropPath, title: $title, originalTitle: $originalTitle, overview: $overview, posterPath: $posterPath, genreIds: $genreIds, popularity: $popularity, releaseDate: $releaseDate, voteAverage: $voteAverage, voteCount: $voteCount)';
+    return 'Movie(id: $id, backdropPath: $backdropPath, title: $title, originalTitle: $originalTitle, overview: $overview, posterPath: $posterPath, genreIds: $genreIds, popularity: $popularity, video: $video, releaseDate: $releaseDate, voteAverage: $voteAverage, voteCount: $voteCount)';
   }
 
   @override
@@ -317,6 +341,7 @@ class _$MovieImpl implements _Movie {
             const DeepCollectionEquality().equals(other._genreIds, _genreIds) &&
             (identical(other.popularity, popularity) ||
                 other.popularity == popularity) &&
+            (identical(other.video, video) || other.video == video) &&
             (identical(other.releaseDate, releaseDate) ||
                 other.releaseDate == releaseDate) &&
             (identical(other.voteAverage, voteAverage) ||
@@ -337,6 +362,7 @@ class _$MovieImpl implements _Movie {
       posterPath,
       const DeepCollectionEquality().hash(_genreIds),
       popularity,
+      video,
       releaseDate,
       voteAverage,
       voteCount);
@@ -369,8 +395,10 @@ abstract class _Movie implements Movie {
       @JsonKey(name: AppConstants.posterPath) required final String? posterPath,
       @JsonKey(name: AppConstants.genreIds) required final List<int> genreIds,
       required final double popularity,
+      required final bool video,
       @JsonKey(name: AppConstants.releaseDate)
-      required final DateTime releaseDate,
+      @DateTimeConverter()
+      required final DateTime? releaseDate,
       @JsonKey(name: AppConstants.voteAverage)
       required final double voteAverage,
       @JsonKey(name: AppConstants.voteCount)
@@ -399,8 +427,11 @@ abstract class _Movie implements Movie {
   @override
   double get popularity;
   @override
+  bool get video;
+  @override
   @JsonKey(name: AppConstants.releaseDate)
-  DateTime get releaseDate;
+  @DateTimeConverter()
+  DateTime? get releaseDate;
   @override
   @JsonKey(name: AppConstants.voteAverage)
   double get voteAverage;

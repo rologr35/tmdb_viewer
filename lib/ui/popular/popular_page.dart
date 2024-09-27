@@ -11,6 +11,7 @@ import 'package:tmdb_viewer/ui/_widgets/tx_text_widget.dart';
 import 'package:tmdb_viewer/ui/popular/popular_controller.dart';
 import 'package:tmdb_viewer/utils/extensions.dart';
 
+import '../../app_config/app_pages/app_pages.dart';
 import '../../data/api/_remote/endpoints.dart';
 import '../../res/values/constants.dart';
 import '../../res/values/images.dart';
@@ -43,7 +44,11 @@ class PopularPage extends GetResponsiveView<PopularController> {
       ),
       actions: [
         TXIconButtonWidget(
-            icon: const Icon(Icons.search, size: 30), onPressed: () {})
+            icon: const Icon(Icons.search, size: 30, color: AppColors.gray), onPressed: () {
+          Get.toNamed(AppPages.instance.search, arguments: {
+            AppConstants.genres: controller.movieGenres
+          });
+        })
       ],
       body: Obx(() => SmartRefresher(
           enablePullDown: !controller.isLoading,

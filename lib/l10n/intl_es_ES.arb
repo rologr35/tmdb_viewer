@@ -14,5 +14,9 @@
   "favorites": "Favoritas",
   "playingNow": "Reproduciendo Ahora",
   "comingSoon": "Próximamente",
-  "topRated": "Mejores calificadas"
+  "topRated": "Mejor Valoradas",
+  "search": "Buscar",
+  "genre": "Género",
+  "accept": "Aceptar",
+  "resetFilter": "Resetear Filtro"
 }

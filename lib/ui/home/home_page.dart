@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tmdb_viewer/app_config/app_pages/app_pages.dart';
 import 'package:tmdb_viewer/res/values/colors.dart';
-import 'package:tmdb_viewer/res/values/constants.dart';
 import '../../res/R.dart';
+import '../../utils/logger.dart';
 import '../_widgets/tx_noappbar_widget.dart';
 import 'home_controller.dart';
 
@@ -33,32 +33,33 @@ class HomePage extends GetResponsiveView<HomeController> {
         body: GetRouterOutlet(
           initialRoute: AppPages.instance.movies,
           anchorRoute: AppPages.instance.homeRoot,
+          filterPages: (pages) {
+            controller.searchBar.value =
+                pages.first.name == AppPages.instance.search;
+            return pages;
+          },
         ),
-        bottomBar: IndexedRouteBuilder(
-            builder: (context, routes, index) {
-              final delegate = context.delegate;
-              return Obx(() => BottomNavigationBar(
-                items: bottomNavItems,
-                currentIndex: controller.currentIndex.value,
-                selectedItemColor: AppColors.primary,
-                selectedFontSize: 12,
-                unselectedFontSize: 12,
-                selectedIconTheme:
-                const IconThemeData(color: AppColors.primary),
-                type: BottomNavigationBarType.fixed,
-                backgroundColor:
-                isDarkMode ? AppColors.grayElementsDark : AppColors.grayLightest,
-                showUnselectedLabels: true,
-                onTap: (value) {
-                  delegate.toNamed(routes[value], arguments: Get.arguments);
-                  controller.currentIndex.value = value;
-                },
-              ));
-            },
-            routes: [
-              AppPages.instance.movies,
-              AppPages.instance.popular,
-              AppPages.instance.myList
-            ]));
+        bottomBar: Obx(() => BottomNavigationBar(
+              items: bottomNavItems,
+              currentIndex: controller.currentIndex.value,
+              selectedItemColor: controller.searchBar.value
+                  ? BottomNavigationBarTheme.of(context).unselectedItemColor
+                  : AppColors.primary,
+              selectedFontSize: 12,
+              unselectedFontSize: 12,
+              selectedIconTheme: IconThemeData(
+                  color: controller.searchBar.value
+                      ? BottomNavigationBarTheme.of(context).unselectedItemColor
+                      : AppColors.primary),
+              type: BottomNavigationBarType.fixed,
+              backgroundColor: isDarkMode
+                  ? AppColors.grayElementsDark
+                  : AppColors.grayLightest,
+              showUnselectedLabels: true,
+              onTap: (value) {
+                Get.toNamed(controller.routes[value], arguments: Get.arguments);
+                controller.currentIndex.value = value;
+              },
+            )));
   }
 }

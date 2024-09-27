@@ -14,20 +14,24 @@ class TXStandardAppbarWidget extends StatelessWidget {
   final Widget body;
   final bool useBackNav;
   final Widget? floatingActionButton;
+  final FloatingActionButtonLocation? floatingActionButtonLocation;
   final double? titleSpacing;
   final Widget? bottomBar;
   final double? leadingWidth;
+  final Widget? titleWidget;
 
   const TXStandardAppbarWidget(
       {super.key,
       this.leadingWidget,
       this.onLeadingTap,
+        this.titleWidget,
       this.actions,
       this.title,
       this.titleFontSize,
       required this.body,
       this.useBackNav = true,
       this.floatingActionButton,
+        this.floatingActionButtonLocation,
       this.bottomBar,
         this.leadingWidth,
       this.titleSpacing});
@@ -50,11 +54,12 @@ class TXStandardAppbarWidget extends StatelessWidget {
             : null);
     return Scaffold(
       floatingActionButton: floatingActionButton,
+      floatingActionButtonLocation: floatingActionButtonLocation,
       appBar: AppBar(
         centerTitle: false,
         actions: actions,
         elevation: 0,
-        title: title != null ? Container(
+        title: titleWidget ?? (title != null ? Container(
           constraints: BoxConstraints(
               maxWidth: MediaQuery.of(context).size.width -
                   (MediaQuery.of(context).size.width *
@@ -67,7 +72,7 @@ class TXStandardAppbarWidget extends StatelessWidget {
             textOverFlow: TextOverflow.ellipsis,
             textColor: isDarkMode ? AppColors.white : AppColors.black,
           ),
-        ) : null,
+        ) : null),
         titleSpacing: titleSpacing ?? (leading == null ? null : -15),
         leading: leading,
         leadingWidth: leadingWidth ?? 56,

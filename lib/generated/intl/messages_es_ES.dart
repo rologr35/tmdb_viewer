@@ -22,6 +22,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "accept": MessageLookupByLibrary.simpleMessage("Aceptar"),
         "appName": MessageLookupByLibrary.simpleMessage("TMDB Viewer"),
         "badRequest":
             MessageLookupByLibrary.simpleMessage("Solicitud inválida"),
@@ -29,6 +30,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "conflicts": MessageLookupByLibrary.simpleMessage("Conflicto"),
         "favorites": MessageLookupByLibrary.simpleMessage("Favoritas"),
         "forbidden": MessageLookupByLibrary.simpleMessage("Denegado"),
+        "genre": MessageLookupByLibrary.simpleMessage("Género"),
         "internalServerError":
             MessageLookupByLibrary.simpleMessage("Error interno de servidor"),
         "movies": MessageLookupByLibrary.simpleMessage("Películas"),
@@ -38,9 +40,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "playingNow":
             MessageLookupByLibrary.simpleMessage("Reproduciendo Ahora"),
         "popular": MessageLookupByLibrary.simpleMessage("Populares"),
+        "resetFilter": MessageLookupByLibrary.simpleMessage("Resetear Filtro"),
+        "search": MessageLookupByLibrary.simpleMessage("Buscar"),
         "someErrorOccurs":
             MessageLookupByLibrary.simpleMessage("Ocurrió un error"),
-        "topRated": MessageLookupByLibrary.simpleMessage("Mejores calificadas"),
+        "topRated": MessageLookupByLibrary.simpleMessage("Mejor Valoradas"),
         "unauthorized": MessageLookupByLibrary.simpleMessage("No autorizado")
       };
 }

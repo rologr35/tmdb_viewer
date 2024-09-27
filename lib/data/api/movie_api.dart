@@ -4,7 +4,8 @@ import 'package:tmdb_viewer/data/api/_base/_base_api.dart';
 import 'package:tmdb_viewer/data/api/_remote/endpoints.dart';
 import 'package:tmdb_viewer/data/api/_remote/i_network_handler.dart';
 import 'package:tmdb_viewer/domain/movie/i_movie_api.dart';
-import 'package:tmdb_viewer/domain/movie/movie_model.dart';
+import 'package:tmdb_viewer/domain/movie/movie_details.dart';
+import 'package:tmdb_viewer/domain/movie/movie_results.dart';
 import 'package:tmdb_viewer/res/values/config.dart';
 import 'package:tmdb_viewer/res/values/constants.dart';
 
@@ -14,48 +15,74 @@ class MovieApi extends BaseApi implements IMovieApi {
   MovieApi(this._networkHandler);
 
   @override
-  Future<List<Movie>> getTrendingMovies(AppLocale locale) async {
-    final res = await _networkHandler.get(path: "${Endpoint.trendingMoviesDay}?language=${locale.localeCode}");
+  Future<MovieResults> getTrendingMovies(AppLocale locale, {int page = 1}) async {
+    final res = await _networkHandler.get(path: "${Endpoint.trendingMoviesDay}?page=$page&language=${locale.localeCode}");
     if(res.statusCode == AppConstants.codeSuccess) {
-      return (res.body['results'] as List<dynamic>).map((e) => Movie.fromJson(e)).toList();
+      return MovieResults.fromJson(res.body);
     }
     throw serverException(res);
   }
 
   @override
-  Future<List<Movie>> getComingSoon(AppLocale locale) async {
-    final res = await _networkHandler.get(path: "${Endpoint.comingSoon}?language=${locale.localeCode}");
+  Future<MovieResults> getComingSoon(AppLocale locale, {int page = 1}) async {
+    final res = await _networkHandler.get(path: "${Endpoint.comingSoon}?page=$page&language=${locale.localeCode}");
     if(res.statusCode == AppConstants.codeSuccess) {
-      return (res.body['results'] as List<dynamic>).map((e) => Movie.fromJson(e)).toList();
+      return MovieResults.fromJson(res.body);
     }
     throw serverException(res);
   }
 
   @override
-  Future<List<Movie>> getNowPlaying(AppLocale locale) async {
-    final res = await _networkHandler.get(path: "${Endpoint.nowPlaying}?language=${locale.localeCode}");
+  Future<MovieResults> getNowPlaying(AppLocale locale, {int page = 1}) async {
+    final res = await _networkHandler.get(path: "${Endpoint.nowPlaying}?page=$page&language=${locale.localeCode}");
     if(res.statusCode == AppConstants.codeSuccess) {
-      return (res.body['results'] as List<dynamic>).map((e) => Movie.fromJson(e)).toList();
+      return MovieResults.fromJson(res.body);
     }
     throw serverException(res);
   }
 
   @override
-  Future<List<Movie>> getTopRated(AppLocale locale) async {
-    final res = await _networkHandler.get(path: "${Endpoint.topRated}?language=${locale.localeCode}");
+  Future<MovieResults> getTopRated(AppLocale locale, {int page = 1}) async {
+    final res = await _networkHandler.get(path: "${Endpoint.topRated}?page=$page&language=${locale.localeCode}");
     if(res.statusCode == AppConstants.codeSuccess) {
-      return (res.body['results'] as List<dynamic>).map((e) => Movie.fromJson(e)).toList();
+      return MovieResults.fromJson(res.body);
     }
     throw serverException(res);
   }
 
   @override
-  Future<Map<int, List<Movie>>> getPopular(AppLocale locale, {int page = 1}) async {
+  Future<MovieResults> getPopular(AppLocale locale, {int page = 1}) async {
     final res = await _networkHandler.get(path: "${Endpoint.popular}?page=$page&language=${locale.localeCode}");
     if(res.statusCode == AppConstants.codeSuccess) {
-      return {
-        res.body['total_pages']: (res.body['results'] as List<dynamic>).map((e) => Movie.fromJson(e)).toList()
-      };
+      return MovieResults.fromJson(res.body);
+    }
+    throw serverException(res);
+  }
+
+  @override
+  Future<MovieDetails> getMovieDetails(AppLocale locale, int movieId) async {
+    final res = await _networkHandler.get(path: Endpoint.details(movieId, locale.localeCode));
+    if(res.statusCode == AppConstants.codeSuccess) {
+      return MovieDetails.fromJson(res.body);
+    }
+    throw serverException(res);
+  }
+
+  @override
+  Future<MovieResults> getMoviesByGenre(AppLocale locale, List<int> genreIds, {int page = 1}) async {
+    final genres = Uri.encodeQueryComponent(genreIds.join(','));
+    final res = await _networkHandler.get(path: "${Endpoint.discover}?language=${locale.localeCode}&page=$page&with_genres=$genres");
+    if(res.statusCode == AppConstants.codeSuccess) {
+      return MovieResults.fromJson(res.body);
+    }
+    throw serverException(res);
+  }
+
+  @override
+  Future<MovieResults> getMoviesByQuery(AppLocale locale, String query, {int page = 1}) async {
+    final res = await _networkHandler.get(path: "${Endpoint.search}?query=$query&language=${locale.localeCode}&page=$page");
+    if(res.statusCode == AppConstants.codeSuccess) {
+      return MovieResults.fromJson(res.body);
     }
     throw serverException(res);
   }

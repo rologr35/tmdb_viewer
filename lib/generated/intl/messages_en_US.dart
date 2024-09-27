@@ -22,12 +22,14 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "accept": MessageLookupByLibrary.simpleMessage("Accept"),
         "appName": MessageLookupByLibrary.simpleMessage("TMDB Viewer"),
         "badRequest": MessageLookupByLibrary.simpleMessage("Bad request"),
         "comingSoon": MessageLookupByLibrary.simpleMessage("Coming Soon"),
         "conflicts": MessageLookupByLibrary.simpleMessage("Conflicts"),
         "favorites": MessageLookupByLibrary.simpleMessage("Favorites"),
         "forbidden": MessageLookupByLibrary.simpleMessage("Forbidden"),
+        "genre": MessageLookupByLibrary.simpleMessage("Genre"),
         "internalServerError":
             MessageLookupByLibrary.simpleMessage("Internal server error"),
         "movies": MessageLookupByLibrary.simpleMessage("Movies"),
@@ -36,6 +38,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "notFound": MessageLookupByLibrary.simpleMessage("Not found"),
         "playingNow": MessageLookupByLibrary.simpleMessage("Playing Now"),
         "popular": MessageLookupByLibrary.simpleMessage("Popular"),
+        "resetFilter": MessageLookupByLibrary.simpleMessage("Reset Filter"),
+        "search": MessageLookupByLibrary.simpleMessage("Search"),
         "someErrorOccurs":
             MessageLookupByLibrary.simpleMessage("Some error occurs"),
         "topRated": MessageLookupByLibrary.simpleMessage("Top Rated"),

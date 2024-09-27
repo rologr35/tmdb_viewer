@@ -14,5 +14,9 @@
   "favorites": "Favorites",
   "playingNow": "Playing Now",
   "comingSoon": "Coming Soon",
-  "topRated": "Top Rated"
+  "topRated": "Top Rated",
+  "search": "Search",
+  "genre": "Genre",
+  "accept": "Accept",
+  "resetFilter": "Reset Filter"
 }

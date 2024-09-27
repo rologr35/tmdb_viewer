@@ -17,7 +17,9 @@ _$MovieImpl _$$MovieImplFromJson(Map<String, dynamic> json) => _$MovieImpl(
           .map((e) => (e as num).toInt())
           .toList(),
       popularity: (json['popularity'] as num).toDouble(),
-      releaseDate: DateTime.parse(json['release_date'] as String),
+      video: json['video'] as bool,
+      releaseDate:
+          const DateTimeConverter().fromJson(json['release_date'] as String?),
       voteAverage: (json['vote_average'] as num).toDouble(),
       voteCount: (json['vote_count'] as num).toInt(),
     );
@@ -32,7 +34,8 @@ Map<String, dynamic> _$$MovieImplToJson(_$MovieImpl instance) =>
       'poster_path': instance.posterPath,
       'genre_ids': instance.genreIds,
       'popularity': instance.popularity,
-      'release_date': instance.releaseDate.toIso8601String(),
+      'video': instance.video,
+      'release_date': const DateTimeConverter().toJson(instance.releaseDate),
       'vote_average': instance.voteAverage,
       'vote_count': instance.voteCount,
     };

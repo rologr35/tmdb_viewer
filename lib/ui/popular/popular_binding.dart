@@ -10,9 +10,7 @@ import '../../domain/movie/i_movie_repo.dart';
 class PopularBinding extends Binding {
   @override
   List<Bind> dependencies() => [
-    Bind.put<IMovieApi>(MovieApi(Bind.find())),
-    Bind.put<IMovieRepo>(MovieRepository(Bind.find())),
-    Bind.put<PopularController>(PopularController(Bind.find()))
+    Bind.put<PopularController>(PopularController(Bind.find()), permanent: true)
   ];
 
 }
