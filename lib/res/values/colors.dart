@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:tmdb_viewer/utils/extensions.dart';
 
 
 class AppColors {
@@ -8,7 +9,7 @@ class AppColors {
   static const primary = Color(0xFF805BE7);
 
   static const blue = Color(0xFF2A7CFF);
-  static const grayElementsDark = Color(0xFF2A2A2A);
+  static final grayElementsDark = grayDarkestPlus.darken(.15);
   static const grayDarkestPlus = Color(0xFF3B3F46);
   static const grayDarkest = Color(0xFF656C79);
   static const grayDark = Color(0xFF97A0AE);

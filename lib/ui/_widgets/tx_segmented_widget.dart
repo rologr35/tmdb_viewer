@@ -27,12 +27,12 @@ class TXSegmentedWidget extends StatelessWidget {
       width: double.infinity,
       height: 40,
       decoration: BoxDecoration(
-          color: isDarkMode ? AppColors.grayDarkest : AppColors.grayLightBorder.lighten(.05),
+          color: isDarkMode ? AppColors.grayElementsDark : AppColors.grayLightBorder.lighten(.05),
           borderRadius: const BorderRadius.all(Radius.circular(10))),
       padding: const EdgeInsets.all(2),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [...map.values.toList()],
+        children: [...map.values],
       ),
     );
   }
@@ -53,7 +53,7 @@ class TXSegmentedWidget extends StatelessWidget {
         onTap(model);
       },
       child: Card(
-        color: isDarkMode ? AppColors.grayDarkestPlus : AppColors.white,
+        color: isDarkMode ? AppColors.grayDarkestPlus.darken() : AppColors.white,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(10)),
         ),

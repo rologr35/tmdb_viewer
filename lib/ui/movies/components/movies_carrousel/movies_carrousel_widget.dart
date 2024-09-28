@@ -72,7 +72,7 @@ class MoviesCarrouselWidget extends StatelessWidget {
                           image: const DecorationImage(
                               image: AssetImage(AppImages.splashLogo)
                               , fit: BoxFit.cover),
-                          color: isDarkMode ? AppColors.grayDark : AppColors.grayLight,
+                          color: isDarkMode ? AppColors.grayDarkestPlus : AppColors.grayLight,
                         )
                     )
                         : TXCachedNetworkImage(
@@ -81,7 +81,7 @@ class MoviesCarrouselWidget extends StatelessWidget {
                             image: const DecorationImage(
                                 image: AssetImage(AppImages.splashLogo)
                                 , fit: BoxFit.cover),
-                            color: isDarkMode ? AppColors.grayDark : AppColors.grayLight,
+                            color: isDarkMode ? AppColors.grayDarkestPlus : AppColors.grayLight,
                           )
                       ),
                       imageUrl: "${Endpoint.imageUrl500}${movies[index].posterPath}",

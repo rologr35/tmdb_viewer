@@ -139,7 +139,7 @@ class _TrendingMoviesState extends State<TrendingMoviesWidget> {
                               image: AssetImage(AppImages.splashLogo),
                               fit: BoxFit.cover),
                           color: isDarkMode
-                              ? AppColors.grayDark
+                              ? AppColors.grayDarkestPlus
                               : AppColors.grayLight,
                         ))
                       : TXCachedNetworkImage(
@@ -149,7 +149,7 @@ class _TrendingMoviesState extends State<TrendingMoviesWidget> {
                                 image: AssetImage(AppImages.splashLogo),
                                 fit: BoxFit.cover),
                             color: isDarkMode
-                                ? AppColors.grayDark
+                                ? AppColors.grayDarkestPlus
                                 : AppColors.grayLight,
                           )),
                           imageUrl:

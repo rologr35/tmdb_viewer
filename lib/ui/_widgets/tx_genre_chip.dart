@@ -10,11 +10,11 @@ class TXGenreChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Chip(
       label: TXTextWidget(genre),
-      backgroundColor: AppColors.grayLightBorder,
+      backgroundColor: isDarkMode ? AppColors.grayDarkestPlus : AppColors.grayLightBorder,
       labelStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
-        color: AppColors.black,
         fontWeight: FontWeight.bold,
       ),
       padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 12),

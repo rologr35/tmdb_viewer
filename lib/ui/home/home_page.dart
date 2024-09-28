@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:tmdb_viewer/app_config/app_pages/app_pages.dart';
 import 'package:tmdb_viewer/res/values/colors.dart';
 import 'package:tmdb_viewer/ui/_widgets/tx_text_widget.dart';
+import 'package:tmdb_viewer/utils/extensions.dart';
 import '../../res/R.dart';
 import '../../utils/logger.dart';
 import '../_widgets/tx_noappbar_widget.dart';

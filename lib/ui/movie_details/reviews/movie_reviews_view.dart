@@ -80,7 +80,7 @@ class MovieReviewsView extends StatelessWidget {
                                     AppImages.user),
                                 fit: BoxFit.cover),
                             color: isDarkMode
-                                ? AppColors.grayDark
+                                ? AppColors.grayDarkestPlus
                                 : AppColors.grayLight,
                           ))
                           : TXCachedNetworkImage(
@@ -92,7 +92,7 @@ class MovieReviewsView extends StatelessWidget {
                                       AppImages.user),
                                   fit: BoxFit.cover),
                               color: isDarkMode
-                                  ? AppColors.grayDark
+                                  ? AppColors.grayDarkestPlus
                                   : AppColors.grayLight,
                             )),
                         imageUrl:

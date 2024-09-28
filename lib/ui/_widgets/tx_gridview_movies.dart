@@ -76,7 +76,7 @@ class TXGridViewMovies extends StatelessWidget {
                             image: AssetImage(AppImages.splashLogo),
                             fit: BoxFit.cover),
                         color: isDarkMode
-                            ? AppColors.grayDark
+                            ? AppColors.grayDarkestPlus
                             : AppColors.grayLight,
                       ))
                       : TXCachedNetworkImage(
@@ -86,7 +86,7 @@ class TXGridViewMovies extends StatelessWidget {
                               image: AssetImage(AppImages.splashLogo),
                               fit: BoxFit.cover),
                           color: isDarkMode
-                              ? AppColors.grayDark
+                              ? AppColors.grayDarkestPlus
                               : AppColors.grayLight,
                         )),
                     imageUrl:

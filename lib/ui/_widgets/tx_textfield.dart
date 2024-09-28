@@ -1,8 +1,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:tmdb_viewer/domain/movie/movie_model.dart';
 import 'package:tmdb_viewer/res/values/colors.dart';
 import 'package:tmdb_viewer/res/values/images.dart';
+import 'package:tmdb_viewer/utils/extensions.dart';
 
 import '../../enums.dart';
 
@@ -136,7 +138,7 @@ class _TXTextFieldState extends State<TXTextField> {
         hintText: widget.hintText,
         hintStyle: TextStyle(color: currentColor),
         labelText: widget.labelText,
-        fillColor: widget.fillColor ?? (isDarkMode ? AppColors.grayDarkestPlus : AppColors.grayLightestPlus),
+        fillColor: widget.fillColor ?? (isDarkMode ? AppColors.grayElementsDark : AppColors.grayLightestPlus),
         filled: true,
         contentPadding: const EdgeInsets.all(12),
         floatingLabelBehavior: FloatingLabelBehavior.always,

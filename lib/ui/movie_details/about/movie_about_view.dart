@@ -68,7 +68,7 @@ class MovieAboutView extends StatelessWidget {
                                         image: AssetImage(AppImages.splashLogo),
                                         fit: BoxFit.cover),
                                     color: isDarkMode
-                                        ? AppColors.grayDark
+                                        ? AppColors.grayDarkestPlus
                                         : AppColors.grayLight,
                                   ))
                                 : TXCachedNetworkImage(
@@ -80,7 +80,7 @@ class MovieAboutView extends StatelessWidget {
                                               AssetImage(AppImages.splashLogo),
                                           fit: BoxFit.cover),
                                       color: isDarkMode
-                                          ? AppColors.grayDark
+                                          ? AppColors.grayDarkestPlus
                                           : AppColors.grayLight,
                                     )),
                                     imageUrl:
@@ -196,7 +196,7 @@ class MovieAboutView extends StatelessWidget {
                                                     AppImages.user),
                                                 fit: BoxFit.cover),
                                             color: isDarkMode
-                                                ? AppColors.grayDark
+                                                ? AppColors.grayDarkestPlus
                                                 : AppColors.grayLight,
                                           ))
                                         : TXCachedNetworkImage(
@@ -208,7 +208,7 @@ class MovieAboutView extends StatelessWidget {
                                                       AppImages.user),
                                                   fit: BoxFit.cover),
                                               color: isDarkMode
-                                                  ? AppColors.grayDark
+                                                  ? AppColors.grayDarkestPlus
                                                   : AppColors.grayLight,
                                             )),
                                             imageUrl:
@@ -226,7 +226,7 @@ class MovieAboutView extends StatelessWidget {
                               TXTextWidget(
                                 model.name,
                                 fontSize: 10.0,
-                                textColor: AppColors.grayDarkest,
+                                textColor: isDarkMode ? AppColors.gray : AppColors.grayDarkest,
                               ),
                             ],
                           ),
