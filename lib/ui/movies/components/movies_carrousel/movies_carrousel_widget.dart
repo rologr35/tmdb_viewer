@@ -1,12 +1,10 @@
 
-
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:tmdb_viewer/data/api/_remote/endpoints.dart';
 import 'package:tmdb_viewer/domain/movie/movie_model.dart';
-import 'package:tmdb_viewer/res/values/constants.dart';
 import 'package:tmdb_viewer/res/values/images.dart';
 import 'package:tmdb_viewer/ui/_widgets/tx_cached_image.dart';
+import 'package:tmdb_viewer/ui/_widgets/tx_text_widget.dart';
 import 'package:tmdb_viewer/utils/extensions.dart';
 
 import '../../../../res/values/colors.dart';
@@ -15,8 +13,9 @@ class MoviesCarrouselWidget extends StatelessWidget {
   final String title;
   final IconData? icon;
   final List<Movie> movies;
+  final ValueChanged<Movie>? onTap;
 
-  const MoviesCarrouselWidget({super.key, required this.movies, required this.title, this.icon});
+  const MoviesCarrouselWidget({super.key, required this.movies, required this.title, this.icon, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -36,11 +35,12 @@ class MoviesCarrouselWidget extends StatelessWidget {
               SizedBox(
                 width: icon == null ? 0 : 10,
               ),
-              Text(
-                title,
-                style: const TextStyle(
+              Expanded(
+                child: TXTextWidget(
+                  title,
                   fontSize: 20,
-                  color: AppColors.grayDarkest,
+                  textOverFlow: TextOverflow.ellipsis,
+                  textColor: AppColors.grayDarkest,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -58,7 +58,11 @@ class MoviesCarrouselWidget extends StatelessWidget {
                 width: 120,
                 height: 150,
                 child: InkWell(
-                  onTap: movies[index].id == -1 ? null : () {},
+                  onTap: movies[index].id == -1 ? null : () {
+                    if(onTap != null) {
+                      onTap!(movies[index]);
+                    }
+                  },
                   borderRadius: BorderRadius.circular(20),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(20),

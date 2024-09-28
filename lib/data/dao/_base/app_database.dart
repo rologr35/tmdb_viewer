@@ -35,7 +35,6 @@ class AppDatabase {
   }
 
   Future _createTables(Database db) async {
-    await _createTable(db, DBConstants.myListTable, DBConstants.tableCols);
     await _createTable(db, DBConstants.genresTable, DBConstants.tableCols);
   }
 
@@ -69,7 +68,6 @@ class AppDatabase {
   }
 
   Future<void> deleteTables() async {
-    await deleteTable(DBConstants.myListTable);
     await deleteTable(DBConstants.genresTable);
   }
 }

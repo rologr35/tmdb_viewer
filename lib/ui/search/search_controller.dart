@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rxdart/rxdart.dart' as rx;
@@ -7,6 +5,7 @@ import 'package:tmdb_viewer/data/repository/_base/result.dart';
 import 'package:tmdb_viewer/domain/movie/i_movie_repo.dart';
 import 'package:tmdb_viewer/domain/movie/movie_model.dart';
 import 'package:tmdb_viewer/domain/movie/movie_results.dart';
+import 'package:tmdb_viewer/domain/movie/movie_wrapper.dart';
 import 'package:tmdb_viewer/res/values/config.dart';
 import 'package:tmdb_viewer/ui/_base/_base_controller.dart';
 
@@ -22,9 +21,10 @@ class SearchController extends BaseController {
 
   final textController = TextEditingController();
   final RxBool showClearIcon = false.obs;
-  final RxList<Selectable<Genre>> selectedGenreFilter = <Selectable<Genre>>[].obs;
+  final RxList<Selectable<Genre>> selectedGenreFilter =
+      <Selectable<Genre>>[].obs;
   final RxList<int> currentGenreFilter = <int>[].obs;
-  final RxList<Movie> results = <Movie>[].obs;
+  final RxList<MovieWrapper> results = <MovieWrapper>[].obs;
 
   final _searchQueryStream = rx.BehaviorSubject<String>.seeded("");
   final _genreFilterStream = rx.BehaviorSubject<List<int>>.seeded([]);
@@ -34,12 +34,13 @@ class SearchController extends BaseController {
     super.onInit();
 
     movieGenres = Get.arguments[AppConstants.genres];
-    selectedGenreFilter.value = movieGenres.map((e) => Selectable<Genre>(e)).toList();
+    selectedGenreFilter.value =
+        movieGenres.map((e) => Selectable<Genre>(e)).toList();
 
     rx.Rx.combineLatest2(
       _searchQueryStream.stream.distinct(),
       _genreFilterStream.stream.distinct(),
-          (String query, List<int> genres) => MapEntry(query, genres),
+      (String query, List<int> genres) => MapEntry(query, genres),
     )
         .debounceTime(const Duration(milliseconds: 500))
         .switchMap((combined) async* {
@@ -68,8 +69,7 @@ class SearchController extends BaseController {
     _searchQueryStream.add("");
   }
 
-
-  Future<List<Movie>> _search(String query, List<int> genreIds) async {
+  Future<List<MovieWrapper>> _search(String query, List<int> genreIds) async {
     // No query and no filters selected
     if (query.trim().isEmpty && genreIds.isEmpty) {
       return [];
@@ -78,12 +78,18 @@ class SearchController extends BaseController {
     // Both query and filters selected
     if (query.trim().isNotEmpty && genreIds.isNotEmpty) {
       final res = await _movieRepo.getMoviesByQuery(AppConfig.locale, query);
-      if (res is ResultSuccess<MovieResults>) {
-        final filteredMovies = res.value.results.where(
-                (movie) => currentGenreFilter.value.every(
-                        (genreId) => movie.genreIds.contains(genreId))
-        ).toList();
-        return filteredMovies;
+      if (res is ResultSuccess<PageResults<Movie>>) {
+        final filteredMovies = res.value.results
+            .where((movie) => currentGenreFilter.value
+                .every((genreId) => movie.genreIds.contains(genreId)))
+            .toList();
+        return filteredMovies
+            .map((e) => MovieWrapper(
+                genres: movieGenres
+                    .where((genre) => e.genreIds.contains(genre.id))
+                    .toList(),
+                movie: e))
+            .toList();
       }
       return [];
     }
@@ -91,16 +97,28 @@ class SearchController extends BaseController {
     // Only filters selected, no query
     if (query.trim().isEmpty) {
       final res = await _movieRepo.getMoviesByGenre(AppConfig.locale, genreIds);
-      if (res is ResultSuccess<MovieResults>) {
-        return res.value.results;
+      if (res is ResultSuccess<PageResults<Movie>>) {
+        return res.value.results
+            .map((e) => MovieWrapper(
+                genres: movieGenres
+                    .where((genre) => e.genreIds.contains(genre.id))
+                    .toList(),
+                movie: e))
+            .toList();
       }
       return [];
     }
 
     // Only query, no filters
     final res = await _movieRepo.getMoviesByQuery(AppConfig.locale, query);
-    if (res is ResultSuccess<MovieResults>) {
-      return res.value.results;
+    if (res is ResultSuccess<PageResults<Movie>>) {
+      return res.value.results
+          .map((e) => MovieWrapper(
+              genres: movieGenres
+                  .where((genre) => e.genreIds.contains(genre.id))
+                  .toList(),
+              movie: e))
+          .toList();
     }
 
     return [];
@@ -114,11 +132,15 @@ class SearchController extends BaseController {
   }
 
   void onResetFilter() {
-    selectedGenreFilter.value = movieGenres.map((e) => Selectable<Genre>(e)).toList();
+    selectedGenreFilter.value =
+        movieGenres.map((e) => Selectable<Genre>(e)).toList();
   }
 
   void applyFilter() {
-    currentGenreFilter.value = selectedGenreFilter.value.where((e) => e.isSelected).map((e) => e.model.id).toList();
+    currentGenreFilter.value = selectedGenreFilter.value
+        .where((e) => e.isSelected)
+        .map((e) => e.model.id)
+        .toList();
     _searchQueryStream.add(textController.text);
     _genreFilterStream.add(currentGenreFilter.value);
   }

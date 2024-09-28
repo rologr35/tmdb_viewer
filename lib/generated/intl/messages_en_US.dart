@@ -22,27 +22,40 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "about": MessageLookupByLibrary.simpleMessage("About"),
         "accept": MessageLookupByLibrary.simpleMessage("Accept"),
         "appName": MessageLookupByLibrary.simpleMessage("TMDB Viewer"),
         "badRequest": MessageLookupByLibrary.simpleMessage("Bad request"),
+        "cast": MessageLookupByLibrary.simpleMessage("Cast"),
         "comingSoon": MessageLookupByLibrary.simpleMessage("Coming Soon"),
         "conflicts": MessageLookupByLibrary.simpleMessage("Conflicts"),
-        "favorites": MessageLookupByLibrary.simpleMessage("Favorites"),
+        "dateFormat1": MessageLookupByLibrary.simpleMessage("yyyy-MM-dd"),
         "forbidden": MessageLookupByLibrary.simpleMessage("Forbidden"),
         "genre": MessageLookupByLibrary.simpleMessage("Genre"),
         "internalServerError":
             MessageLookupByLibrary.simpleMessage("Internal server error"),
         "movies": MessageLookupByLibrary.simpleMessage("Movies"),
+        "no": MessageLookupByLibrary.simpleMessage("No"),
         "noInternetConnection":
             MessageLookupByLibrary.simpleMessage("No internet connection"),
+        "noReviews":
+            MessageLookupByLibrary.simpleMessage("No reviews available"),
         "notFound": MessageLookupByLibrary.simpleMessage("Not found"),
+        "nothingToShow":
+            MessageLookupByLibrary.simpleMessage("Nothing to show"),
+        "ok": MessageLookupByLibrary.simpleMessage("Ok"),
         "playingNow": MessageLookupByLibrary.simpleMessage("Playing Now"),
         "popular": MessageLookupByLibrary.simpleMessage("Popular"),
         "resetFilter": MessageLookupByLibrary.simpleMessage("Reset Filter"),
+        "reviews": MessageLookupByLibrary.simpleMessage("Reviews"),
         "search": MessageLookupByLibrary.simpleMessage("Search"),
+        "showLess": MessageLookupByLibrary.simpleMessage("Show less"),
+        "showMore": MessageLookupByLibrary.simpleMessage("Show more"),
         "someErrorOccurs":
             MessageLookupByLibrary.simpleMessage("Some error occurs"),
+        "synopsis": MessageLookupByLibrary.simpleMessage("Synopsis"),
         "topRated": MessageLookupByLibrary.simpleMessage("Top Rated"),
-        "unauthorized": MessageLookupByLibrary.simpleMessage("Unauthorized")
+        "unauthorized": MessageLookupByLibrary.simpleMessage("Unauthorized"),
+        "yes": MessageLookupByLibrary.simpleMessage("Yes")
       };
 }

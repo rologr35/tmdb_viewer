@@ -20,7 +20,6 @@ class DBConstants {
   static const String intType = 'INTEGER';
 
   ///table names
-  static const String myListTable = 'my_list_table';
   static const String genresTable = "genres_table";
 
 }

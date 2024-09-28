@@ -7,10 +7,10 @@ class HomeController extends BaseController {
 
   final routes = <String>[
     AppPages.instance.movies,
-    AppPages.instance.popular,
-    AppPages.instance.favorites
+    AppPages.instance.popular
   ];
-
+  final movieDetailsRegex = RegExp(r'^/home/movies/(\d+)$');
   final RxInt currentIndex = 0.obs;
   final RxBool searchBar = false.obs;
+  final RxBool bottomBar = true.obs;
 }

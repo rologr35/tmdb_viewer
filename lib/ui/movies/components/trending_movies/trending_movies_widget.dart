@@ -7,14 +7,16 @@ import 'package:tmdb_viewer/domain/movie/movie_model.dart';
 import 'package:tmdb_viewer/res/values/colors.dart';
 import 'package:tmdb_viewer/res/values/images.dart';
 import 'package:tmdb_viewer/ui/_widgets/tx_cached_image.dart';
+import 'package:tmdb_viewer/ui/_widgets/tx_movie_average.dart';
 import 'package:tmdb_viewer/ui/_widgets/tx_text_widget.dart';
 import 'package:tmdb_viewer/utils/extensions.dart';
 
 
 class TrendingMoviesWidget extends StatefulWidget {
   final List<Movie> movies;
+  final ValueChanged<Movie>? onTap;
 
-  const TrendingMoviesWidget({super.key, required this.movies});
+  const TrendingMoviesWidget({super.key, required this.movies, this.onTap});
 
   @override
   State<StatefulWidget> createState() => _TrendingMoviesState();
@@ -118,7 +120,11 @@ class _TrendingMoviesState extends State<TrendingMoviesWidget> {
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
         child: InkWell(
-          onTap: widget.movies[index].id == -1 ? null : () {},
+          onTap: widget.movies[index].id == -1 ? null : () {
+            if(widget.onTap != null) {
+              widget.onTap!(widget.movies[index]);
+            }
+          },
           borderRadius: BorderRadius.circular(30.0),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(30.0),
@@ -157,27 +163,7 @@ class _TrendingMoviesState extends State<TrendingMoviesWidget> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const Spacer(),
-                        Container(
-                          height: 25,
-                          width: 45,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10.0),
-                            color: Colors.orange,
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Icon(Icons.star,
-                                  color: AppColors.white, size: 13),
-                              TXTextWidget(
-                                (widget.movies[index].voteAverage).toStringAsFixed(1),
-                                textColor: AppColors.white,
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ],
-                          ),
-                        ),
+                        TXMovieAverage(widget.movies[index].voteAverage),
                         const SizedBox(height: 20),
                         TXTextWidget(
                           widget.movies[index].title,

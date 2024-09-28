@@ -59,8 +59,9 @@ class GenreDao implements IGenreDao {
             result.add(Genre.fromJson(jsonDecode(value)));
           }
         } catch (ex) {
-          cursor?.close();
           Logger.log(ex);
+        } finally {
+          cursor?.close();
         }
       });
     } catch(ex) {

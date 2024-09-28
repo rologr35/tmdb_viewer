@@ -21,8 +21,13 @@ MovieWrapper _$MovieWrapperFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$MovieWrapper {
   List<Genre> get genres => throw _privateConstructorUsedError;
-  List<Actor> get cast => throw _privateConstructorUsedError;
+  set genres(List<Genre> value) => throw _privateConstructorUsedError;
+  List<Actor>? get cast => throw _privateConstructorUsedError;
+  set cast(List<Actor>? value) => throw _privateConstructorUsedError;
+  MovieDetails? get movieDetails => throw _privateConstructorUsedError;
+  set movieDetails(MovieDetails? value) => throw _privateConstructorUsedError;
   Movie get movie => throw _privateConstructorUsedError;
+  set movie(Movie value) => throw _privateConstructorUsedError;
 
   /// Serializes this MovieWrapper to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -40,8 +45,13 @@ abstract class $MovieWrapperCopyWith<$Res> {
           MovieWrapper value, $Res Function(MovieWrapper) then) =
       _$MovieWrapperCopyWithImpl<$Res, MovieWrapper>;
   @useResult
-  $Res call({List<Genre> genres, List<Actor> cast, Movie movie});
+  $Res call(
+      {List<Genre> genres,
+      List<Actor>? cast,
+      MovieDetails? movieDetails,
+      Movie movie});
 
+  $MovieDetailsCopyWith<$Res>? get movieDetails;
   $MovieCopyWith<$Res> get movie;
 }
 
@@ -61,7 +71,8 @@ class _$MovieWrapperCopyWithImpl<$Res, $Val extends MovieWrapper>
   @override
   $Res call({
     Object? genres = null,
-    Object? cast = null,
+    Object? cast = freezed,
+    Object? movieDetails = freezed,
     Object? movie = null,
   }) {
     return _then(_value.copyWith(
@@ -69,15 +80,33 @@ class _$MovieWrapperCopyWithImpl<$Res, $Val extends MovieWrapper>
           ? _value.genres
           : genres // ignore: cast_nullable_to_non_nullable
               as List<Genre>,
-      cast: null == cast
+      cast: freezed == cast
           ? _value.cast
           : cast // ignore: cast_nullable_to_non_nullable
-              as List<Actor>,
+              as List<Actor>?,
+      movieDetails: freezed == movieDetails
+          ? _value.movieDetails
+          : movieDetails // ignore: cast_nullable_to_non_nullable
+              as MovieDetails?,
       movie: null == movie
           ? _value.movie
           : movie // ignore: cast_nullable_to_non_nullable
               as Movie,
     ) as $Val);
+  }
+
+  /// Create a copy of MovieWrapper
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $MovieDetailsCopyWith<$Res>? get movieDetails {
+    if (_value.movieDetails == null) {
+      return null;
+    }
+
+    return $MovieDetailsCopyWith<$Res>(_value.movieDetails!, (value) {
+      return _then(_value.copyWith(movieDetails: value) as $Val);
+    });
   }
 
   /// Create a copy of MovieWrapper
@@ -99,8 +128,14 @@ abstract class _$$MovieWrapperImplCopyWith<$Res>
       __$$MovieWrapperImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<Genre> genres, List<Actor> cast, Movie movie});
+  $Res call(
+      {List<Genre> genres,
+      List<Actor>? cast,
+      MovieDetails? movieDetails,
+      Movie movie});
 
+  @override
+  $MovieDetailsCopyWith<$Res>? get movieDetails;
   @override
   $MovieCopyWith<$Res> get movie;
 }
@@ -119,7 +154,8 @@ class __$$MovieWrapperImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? genres = null,
-    Object? cast = null,
+    Object? cast = freezed,
+    Object? movieDetails = freezed,
     Object? movie = null,
   }) {
     return _then(_$MovieWrapperImpl(
@@ -127,10 +163,14 @@ class __$$MovieWrapperImplCopyWithImpl<$Res>
           ? _value.genres
           : genres // ignore: cast_nullable_to_non_nullable
               as List<Genre>,
-      cast: null == cast
+      cast: freezed == cast
           ? _value.cast
           : cast // ignore: cast_nullable_to_non_nullable
-              as List<Actor>,
+              as List<Actor>?,
+      movieDetails: freezed == movieDetails
+          ? _value.movieDetails
+          : movieDetails // ignore: cast_nullable_to_non_nullable
+              as MovieDetails?,
       movie: null == movie
           ? _value.movie
           : movie // ignore: cast_nullable_to_non_nullable
@@ -142,41 +182,28 @@ class __$$MovieWrapperImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$MovieWrapperImpl implements _MovieWrapper {
-  const _$MovieWrapperImpl(
-      {required this.genres, required this.cast, required this.movie});
+  _$MovieWrapperImpl(
+      {required this.genres,
+      this.cast,
+      this.movieDetails,
+      required this.movie});
 
   factory _$MovieWrapperImpl.fromJson(Map<String, dynamic> json) =>
       _$$MovieWrapperImplFromJson(json);
 
   @override
-  final List<Genre> genres;
+  List<Genre> genres;
   @override
-  final List<Actor> cast;
+  List<Actor>? cast;
   @override
-  final Movie movie;
+  MovieDetails? movieDetails;
+  @override
+  Movie movie;
 
   @override
   String toString() {
-    return 'MovieWrapper(genres: $genres, cast: $cast, movie: $movie)';
+    return 'MovieWrapper(genres: $genres, cast: $cast, movieDetails: $movieDetails, movie: $movie)';
   }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$MovieWrapperImpl &&
-            const DeepCollectionEquality().equals(other.genres, genres) &&
-            const DeepCollectionEquality().equals(other.cast, cast) &&
-            (identical(other.movie, movie) || other.movie == movie));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(genres),
-      const DeepCollectionEquality().hash(cast),
-      movie);
 
   /// Create a copy of MovieWrapper
   /// with the given fields replaced by the non-null parameter values.
@@ -195,20 +222,27 @@ class _$MovieWrapperImpl implements _MovieWrapper {
 }
 
 abstract class _MovieWrapper implements MovieWrapper {
-  const factory _MovieWrapper(
-      {required final List<Genre> genres,
-      required final List<Actor> cast,
-      required final Movie movie}) = _$MovieWrapperImpl;
+  factory _MovieWrapper(
+      {required List<Genre> genres,
+      List<Actor>? cast,
+      MovieDetails? movieDetails,
+      required Movie movie}) = _$MovieWrapperImpl;
 
   factory _MovieWrapper.fromJson(Map<String, dynamic> json) =
       _$MovieWrapperImpl.fromJson;
 
   @override
   List<Genre> get genres;
+  set genres(List<Genre> value);
   @override
-  List<Actor> get cast;
+  List<Actor>? get cast;
+  set cast(List<Actor>? value);
+  @override
+  MovieDetails? get movieDetails;
+  set movieDetails(MovieDetails? value);
   @override
   Movie get movie;
+  set movie(Movie value);
 
   /// Create a copy of MovieWrapper
   /// with the given fields replaced by the non-null parameter values.

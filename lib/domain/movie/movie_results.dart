@@ -1,19 +1,19 @@
 
 
-import 'package:tmdb_viewer/domain/movie/movie_model.dart';
-
-class MovieResults {
+class PageResults<T> {
   final int page;
   final int totalPages;
   final int totalResults;
-  final List<Movie> results;
+  final List<T> results;
 
-  MovieResults({required this.page, required this.totalPages, required this.results, required this.totalResults});
+  PageResults({required this.page, required this.totalPages, required this.results, required this.totalResults});
 
-  factory MovieResults.fromJson(Map<String, dynamic> json) => MovieResults(
-    page: json['page'],
-    results: (json['results'] as List<dynamic>).map((e) => Movie.fromJson(e)).toList(),
-    totalPages: json['total_pages'],
-    totalResults: json['total_results']
+  factory PageResults.fromJson(Map<String, dynamic> json, T Function(Map<String, dynamic>) fromJsonT) => PageResults(
+      page: json['page'],
+      results: (json['results'] as List<dynamic>)
+      .map((item) => fromJsonT(item as Map<String, dynamic>))
+      .toList(),
+      totalPages: json['total_pages'],
+      totalResults: json['total_results']
   );
 }

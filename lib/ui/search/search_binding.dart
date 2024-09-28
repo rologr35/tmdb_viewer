@@ -5,7 +5,7 @@ import 'search_controller.dart';
 class SearchBinding extends Binding {
   @override
   List<Bind> dependencies() => [
-    Bind.put<SearchController>(SearchController(Bind.find()))
+    Bind.put<SearchController>(SearchController(Bind.find()), permanent: true)
   ];
 
 }

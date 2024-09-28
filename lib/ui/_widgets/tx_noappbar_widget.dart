@@ -16,10 +16,7 @@ class TXNoAppbarWidget extends StatelessWidget{
       resizeToAvoidBottomInset: resizeToAvoidBottomInset,
       bottomNavigationBar: bottomBar,
       body: SafeArea(
-        top: safeArea,
         bottom: safeArea,
-        left: true,
-        right: true,
         child: body,
       ),
     );

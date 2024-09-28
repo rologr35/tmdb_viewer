@@ -10,7 +10,7 @@ import '../../data/repository/_base/result.dart';
 import '../../res/R.dart';
 import '../_widgets/tx_text_widget.dart';
 
-mixin ErrorHandler {
+mixin MessageHandler {
   void showErrorMessage(dynamic ex, {bool showMessageOnCancel = true}) {
     String message = "";
     if (ex is DioException && ex.message?.contains("400") == true) {

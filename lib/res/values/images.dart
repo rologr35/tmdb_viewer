@@ -6,4 +6,5 @@ class AppImages {
   static const eye = 'lib/res/assets/img/eye.png';
   static const eyeSlash = 'lib/res/assets/img/eye_slash.png';
   static const error = 'lib/res/assets/img/error.png';
+  static const user = 'lib/res/assets/img/user_large.png';
 }

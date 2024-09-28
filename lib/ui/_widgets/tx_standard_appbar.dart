@@ -19,10 +19,12 @@ class TXStandardAppbarWidget extends StatelessWidget {
   final Widget? bottomBar;
   final double? leadingWidth;
   final Widget? titleWidget;
+  final bool safeArea;
 
   const TXStandardAppbarWidget(
       {super.key,
       this.leadingWidget,
+        this.safeArea = true,
       this.onLeadingTap,
         this.titleWidget,
       this.actions,
@@ -80,10 +82,7 @@ class TXStandardAppbarWidget extends StatelessWidget {
       ),
       bottomNavigationBar: bottomBar,
       body: SafeArea(
-        bottom: true,
-        left: true,
-        right: true,
-        top: false,
+        bottom: safeArea,
         child: body,
       ),
     );

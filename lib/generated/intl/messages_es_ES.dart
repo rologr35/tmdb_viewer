@@ -22,29 +22,42 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "about": MessageLookupByLibrary.simpleMessage("Acerca"),
         "accept": MessageLookupByLibrary.simpleMessage("Aceptar"),
         "appName": MessageLookupByLibrary.simpleMessage("TMDB Viewer"),
         "badRequest":
             MessageLookupByLibrary.simpleMessage("Solicitud inválida"),
+        "cast": MessageLookupByLibrary.simpleMessage("Elenco"),
         "comingSoon": MessageLookupByLibrary.simpleMessage("Próximamente"),
         "conflicts": MessageLookupByLibrary.simpleMessage("Conflicto"),
-        "favorites": MessageLookupByLibrary.simpleMessage("Favoritas"),
+        "dateFormat1": MessageLookupByLibrary.simpleMessage("dd-MM-yyyy"),
         "forbidden": MessageLookupByLibrary.simpleMessage("Denegado"),
         "genre": MessageLookupByLibrary.simpleMessage("Género"),
         "internalServerError":
             MessageLookupByLibrary.simpleMessage("Error interno de servidor"),
         "movies": MessageLookupByLibrary.simpleMessage("Películas"),
+        "no": MessageLookupByLibrary.simpleMessage("No"),
         "noInternetConnection": MessageLookupByLibrary.simpleMessage(
             "No existe conexión a internet"),
+        "noReviews": MessageLookupByLibrary.simpleMessage(
+            "No hay valoraciones que mostrar"),
         "notFound": MessageLookupByLibrary.simpleMessage("No encontrado"),
+        "nothingToShow": MessageLookupByLibrary.simpleMessage(
+            "No hay películas que mostrar"),
+        "ok": MessageLookupByLibrary.simpleMessage("Ok"),
         "playingNow":
             MessageLookupByLibrary.simpleMessage("Reproduciendo Ahora"),
         "popular": MessageLookupByLibrary.simpleMessage("Populares"),
         "resetFilter": MessageLookupByLibrary.simpleMessage("Resetear Filtro"),
+        "reviews": MessageLookupByLibrary.simpleMessage("Valoraciones"),
         "search": MessageLookupByLibrary.simpleMessage("Buscar"),
+        "showLess": MessageLookupByLibrary.simpleMessage("Mostrar menos"),
+        "showMore": MessageLookupByLibrary.simpleMessage("Mostrar más"),
         "someErrorOccurs":
             MessageLookupByLibrary.simpleMessage("Ocurrió un error"),
+        "synopsis": MessageLookupByLibrary.simpleMessage("Sinopsis"),
         "topRated": MessageLookupByLibrary.simpleMessage("Mejor Valoradas"),
-        "unauthorized": MessageLookupByLibrary.simpleMessage("No autorizado")
+        "unauthorized": MessageLookupByLibrary.simpleMessage("No autorizado"),
+        "yes": MessageLookupByLibrary.simpleMessage("Si")
       };
 }

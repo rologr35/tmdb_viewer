@@ -11,6 +11,8 @@ class Endpoint {
   static const search = "/search/movie";
   static const discover = "/discover/movie";
   static details(int movieId, String language) => "/movie/$movieId?language=$language";
+  static reviews(int movieId, String language, int page) => "/movie/$movieId/reviews?language=$language&page=$page";
+  static similar(int movieId, String language, int page) => "/movie/$movieId/similar?language=$language&page=$page";
 
   ///genres
   static const genres = "/genre/movie/list";

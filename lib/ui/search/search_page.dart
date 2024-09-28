@@ -3,16 +3,18 @@ import 'package:get/get.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:tmdb_viewer/domain/genre/genre_model.dart';
 import 'package:tmdb_viewer/ui/_widgets/tx_gesture_hide_key_board.dart';
+import 'package:tmdb_viewer/ui/_widgets/tx_gridview_movies.dart';
 import 'package:tmdb_viewer/ui/_widgets/tx_icon_button_widget.dart';
 import 'package:tmdb_viewer/ui/_widgets/tx_standard_appbar.dart';
 import 'package:tmdb_viewer/ui/_widgets/tx_textfield.dart';
 import 'package:tmdb_viewer/ui/search/search_controller.dart' as sc;
 import 'package:tmdb_viewer/utils/extensions.dart';
+import '../../app_config/app_pages/app_pages.dart';
 import '../../data/api/_remote/endpoints.dart';
+import '../../domain/movie/movie_wrapper.dart';
 import '../../res/R.dart';
 import '../../res/values/colors.dart';
 import '../../res/values/images.dart';
-import '../../utils/logger.dart';
 import '../_widgets/tx_bottom_sheet.dart';
 import '../_widgets/tx_button.dart';
 import '../_widgets/tx_cached_image.dart';
@@ -172,46 +174,21 @@ class SearchPage extends GetResponsiveView<sc.SearchController> {
                       : null,
                 )),
             titleSpacing: 15,
-            body: Obx(() => GridView.builder(
-                itemCount: controller.results.length,
-                padding: const EdgeInsets.all(15),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  childAspectRatio: (120.0 / 185.0),
-                  crossAxisCount: 3,
-                  crossAxisSpacing: 10.0,
-                  mainAxisSpacing: 10.0,
-                ),
-                itemBuilder: (BuildContext context, int index) {
-                  return InkWell(
-                    onTap: () {},
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(20.0),
-                      child:
-                          controller.results[index].posterPath.isNullOrEmpty()
-                              ? Container(
-                                  decoration: BoxDecoration(
-                                  image: const DecorationImage(
-                                      image: AssetImage(AppImages.splashLogo),
-                                      fit: BoxFit.cover),
-                                  color: isDarkMode
-                                      ? AppColors.grayDark
-                                      : AppColors.grayLight,
-                                ))
-                              : TXCachedNetworkImage(
-                                  placeholder: Container(
-                                      decoration: BoxDecoration(
-                                    image: const DecorationImage(
-                                        image: AssetImage(AppImages.splashLogo),
-                                        fit: BoxFit.cover),
-                                    color: isDarkMode
-                                        ? AppColors.grayDark
-                                        : AppColors.grayLight,
-                                  )),
-                                  imageUrl:
-                                      "${Endpoint.imageUrl500}${controller.results[index].posterPath}",
-                                ),
-                    ),
-                  );
-                }))));
+            body: Obx(() => controller.results.isEmpty &&
+                    !controller.showClearIcon.value &&
+                        controller.currentGenreFilter.isEmpty
+                ? Container()
+                : controller.results.isEmpty
+                    ? Center(
+              child: TXTextWidget(R.string.nothingToShow, fontSize: 16),
+            )
+                    : TXGridViewMovies(
+                        isLoading: false,
+                        onTap: (movie) {
+                          Get.toNamed(
+                              "${AppPages.instance.movies}/${movie.movie.id}",
+                              arguments: {"details": movie});
+                        },
+                        movies: controller.results.value))));
   }
 }

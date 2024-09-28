@@ -160,16 +160,6 @@ class S {
     );
   }
 
-  /// `Favorites`
-  String get favorites {
-    return Intl.message(
-      'Favorites',
-      name: 'favorites',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Playing Now`
   String get playingNow {
     return Intl.message(
@@ -235,6 +225,126 @@ class S {
     return Intl.message(
       'Reset Filter',
       name: 'resetFilter',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `About`
+  String get about {
+    return Intl.message(
+      'About',
+      name: 'about',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reviews`
+  String get reviews {
+    return Intl.message(
+      'Reviews',
+      name: 'reviews',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `yyyy-MM-dd`
+  String get dateFormat1 {
+    return Intl.message(
+      'yyyy-MM-dd',
+      name: 'dateFormat1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Synopsis`
+  String get synopsis {
+    return Intl.message(
+      'Synopsis',
+      name: 'synopsis',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cast`
+  String get cast {
+    return Intl.message(
+      'Cast',
+      name: 'cast',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ok`
+  String get ok {
+    return Intl.message(
+      'Ok',
+      name: 'ok',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Yes`
+  String get yes {
+    return Intl.message(
+      'Yes',
+      name: 'yes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No`
+  String get no {
+    return Intl.message(
+      'No',
+      name: 'no',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Nothing to show`
+  String get nothingToShow {
+    return Intl.message(
+      'Nothing to show',
+      name: 'nothingToShow',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No reviews available`
+  String get noReviews {
+    return Intl.message(
+      'No reviews available',
+      name: 'noReviews',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Show more`
+  String get showMore {
+    return Intl.message(
+      'Show more',
+      name: 'showMore',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Show less`
+  String get showLess {
+    return Intl.message(
+      'Show less',
+      name: 'showLess',
       desc: '',
       args: [],
     );

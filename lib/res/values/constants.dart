@@ -37,6 +37,14 @@ class AppConstants {
   static const voteAverage = "vote_average";
   static const voteCount = "vote_count";
 
+  ///Review
+  static const createdAt = "created_at";
+  static const updatedAt = "updated_at";
+
+  ///Author
+  static const authorDetails = "author_details";
+  static const avatarPath = "avatar_path";
+
   ///Actor
   static const castId = "cast_id";
   static const originalName = "original_name";

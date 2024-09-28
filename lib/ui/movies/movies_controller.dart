@@ -31,7 +31,7 @@ class MoviesController extends BaseController  with LoadingHandler{
 
   @override
   void onClose() {
-    loadingController.close();
+    disposeLoadingHandler();
     super.onClose();
   }
 
@@ -105,28 +105,28 @@ class MoviesController extends BaseController  with LoadingHandler{
 
   Future<void> _loadTrendingMovies() async {
     final res = await _movieRepo.getTrendingMovies(AppConfig.locale);
-    if(res is ResultSuccess<MovieResults>) {
+    if(res is ResultSuccess<PageResults<Movie>>) {
       trendingMovies.value = res.value.results;
     }
   }
 
   Future<void> _loadUpcomingMovies() async {
     final res = await _movieRepo.getComingSoon(AppConfig.locale);
-    if(res is ResultSuccess<MovieResults>) {
+    if(res is ResultSuccess<PageResults<Movie>>) {
       upcomingMovies.value = res.value.results;
     }
   }
 
   Future<void> _loadNowPlayingMovies() async {
     final res = await _movieRepo.getNowPlaying(AppConfig.locale);
-    if(res is ResultSuccess<MovieResults>) {
+    if(res is ResultSuccess<PageResults<Movie>>) {
       nowPlayingMovies.value = res.value.results;
     }
   }
 
   Future<void> _loadTopRatedMovies() async {
     final res = await _movieRepo.getTopRated(AppConfig.locale);
-    if(res is ResultSuccess<MovieResults>) {
+    if(res is ResultSuccess<PageResults<Movie>>) {
       topRatedMovies.value = res.value.results;
     }
   }
