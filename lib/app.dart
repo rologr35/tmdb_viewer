@@ -40,7 +40,7 @@ class TmdbViewerApp extends StatelessWidget {
       darkTheme: AppTheme.darkTheme,
       highContrastTheme: AppTheme.lightTheme,
       highContrastDarkTheme: AppTheme.darkTheme,
-      themeMode: ThemeMode.system,
+      themeMode: ThemeMode.dark,
       initialRoute: AppPages.instance.splash,
       binds: MainBinding.dependencies(),
       getPages: AppPages.instance.pages,

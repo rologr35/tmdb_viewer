@@ -1,6 +1,8 @@
 # TMDB Viewer
 
-A simple Flutter app that allows users to search and view details of movies from The Movie Database (TMDB). 
+A Flutter app that allows users to search and view details of movies from The Movie Database (TMDB).
+This product is not intended for commercial purposes.
+This product uses the TMDB API, image and colors but is not endorsed or certified by TMDB.
 
 ## Light Theme Screenshots
 
