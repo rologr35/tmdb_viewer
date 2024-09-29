@@ -21,7 +21,10 @@ class MovieAboutView extends StatelessWidget {
   final bool isLoading;
 
   const MovieAboutView(
-      {super.key, required this.fakeCast, required this.movie, this.isLoading = false});
+      {super.key,
+      required this.fakeCast,
+      required this.movie,
+      this.isLoading = false});
 
   @override
   Widget build(BuildContext context) {
@@ -36,103 +39,82 @@ class MovieAboutView extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Card(
-                        elevation: 4,
-                        margin: EdgeInsets.zero,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20)),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(20),
-                          child: SizedBox(
-                            width: (MediaQuery.of(context).orientation ==
-                                            Orientation.portrait
-                                        ? MediaQuery.of(context).size.width
-                                        : MediaQuery.of(context).size.height) *
-                                    3 /
-                                    5 -
-                                30,
-                            height: (MediaQuery.of(context).orientation ==
-                                        Orientation.portrait
-                                    ? MediaQuery.of(context).size.width
-                                    : MediaQuery.of(context).size.height) *
-                                3 /
-                                5 /
-                                0.7,
-                            child: movie.movie.posterPath.isNullOrEmpty()
-                                ? Container(
-                                    decoration: BoxDecoration(
-                                    image: const DecorationImage(
-                                        image: AssetImage(AppImages.splashLogo),
-                                        fit: BoxFit.cover),
-                                    color: isDarkMode
-                                        ? AppColors.grayDarkestPlus
-                                        : AppColors.grayLight,
-                                  ))
-                                : TXCachedNetworkImage(
-                                    fit: BoxFit.fill,
-                                    placeholder: Container(
-                                        decoration: BoxDecoration(
-                                      image: const DecorationImage(
+                  InkWell(
+                    onTap: () async {
+                      if (!(movie.movieDetails?.homepage?.isNullOrEmpty() ??
+                              true) &&
+                          await canLaunchUrlString(
+                              movie.movieDetails!.homepage!)) {
+                        launchUrlString(movie.movieDetails!.homepage!);
+                      }
+                    },
+                    child: Card(
+                      elevation: 4,
+                      margin: EdgeInsets.zero,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20)),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: SizedBox(
+                          width: double.infinity,
+                          height: MediaQuery.of(context).size.width * 0.7,
+                          child: Stack(
+                            children: [
+                              movie.movie.backdropPath.isNullOrEmpty()
+                                  ? Container(
+                                      decoration: const BoxDecoration(
+                                      image: DecorationImage(
                                           image:
                                               AssetImage(AppImages.splashLogo),
                                           fit: BoxFit.cover),
-                                      color: isDarkMode
-                                          ? AppColors.grayDarkestPlus
-                                          : AppColors.grayLight,
-                                    )),
-                                    imageUrl:
-                                        "${Endpoint.imageUrl780}${movie.movie.posterPath}",
-                                  ),
+                                      color: AppColors.grayDarkestPlus,
+                                    ))
+                                  : TXCachedNetworkImage(
+                                      color: Colors.black26,
+                                      blendMode: BlendMode.darken,
+                                      placeholder: Container(
+                                          decoration: const BoxDecoration(
+                                        image: DecorationImage(
+                                            image: AssetImage(
+                                                AppImages.splashLogo),
+                                            fit: BoxFit.cover),
+                                        color: AppColors.grayDarkestPlus,
+                                      )),
+                                      imageUrl:
+                                          "${Endpoint.imageUrl780}${movie.movie.backdropPath}",
+                                    ),
+                              movie.movie.id == -1
+                                  ? Container()
+                                  : Padding(
+                                      padding: const EdgeInsets.all(16),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          const Spacer(),
+                                          TXMovieAverage(
+                                              movie.movie.voteAverage),
+                                          const SizedBox(height: 15),
+                                          TXTextWidget(
+                                            movie.movie.title,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold,
+                                            textColor: AppColors.white,
+                                          ),
+                                          TXTextWidget(
+                                            "${DateTimeUtils.showInFormat('yyyy', movie.movie.releaseDate)} | ${movie.movieDetails?.runtime ?? "-"} mins",
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w600,
+                                            textColor: AppColors.white,
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                            ],
                           ),
                         ),
                       ),
-                      Expanded(
-                          child: Container(
-                        margin: const EdgeInsets.only(left: 20),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            TXMovieAverage(movie.movie.voteAverage),
-                            const SizedBox(height: 15),
-                            TXTextWidget(DateTimeUtils.showInFormat(
-                                R.string.dateFormat1, movie.movie.releaseDate)),
-                            const SizedBox(height: 5),
-                            Skeletonizer(
-                              enabled: isLoading,
-                                child: TXTextWidget(
-                                    "${movie.movieDetails?.runtime ?? "-"} mins")),
-                            const SizedBox(height: 5),
-                            Skeletonizer(
-                                enabled: isLoading,
-                                ignoreContainers: false,
-                                child: isLoading
-                                    ? const Icon(Icons.home,
-                                    size: 30,
-                                    color: AppColors.primary)
-                                    : movie.movieDetails?.homepage == null
-                                        ? Container()
-                                        : InkWell(
-                                            onTap: () {
-                                              canLaunchUrlString(movie
-                                                      .movieDetails!.homepage!)
-                                                  .then((v) {
-                                                if (v) {
-                                                  launchUrlString(movie
-                                                      .movieDetails!.homepage!);
-                                                }
-                                              });
-                                            },
-                                            child: const Icon(Icons.home,
-                                                size: 30,
-                                                color: AppColors.primary),
-                                          ))
-                          ],
-                        ),
-                      )),
-                    ],
+                    ),
                   ),
                   const SizedBox(height: 15),
                   Wrap(
@@ -168,7 +150,7 @@ class MovieAboutView extends StatelessWidget {
                   ),
                   const SizedBox(height: 15),
                   SizedBox(
-                    height: 180,
+                    height: 200,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
                       itemCount: movie.cast?.length ?? fakeCast.length,
@@ -192,8 +174,8 @@ class MovieAboutView extends StatelessWidget {
                                         ? Container(
                                             decoration: BoxDecoration(
                                             image: const DecorationImage(
-                                                image: AssetImage(
-                                                    AppImages.user),
+                                                image:
+                                                    AssetImage(AppImages.user),
                                                 fit: BoxFit.cover),
                                             color: isDarkMode
                                                 ? AppColors.grayDarkestPlus
@@ -226,7 +208,9 @@ class MovieAboutView extends StatelessWidget {
                               TXTextWidget(
                                 model.name,
                                 fontSize: 10.0,
-                                textColor: isDarkMode ? AppColors.gray : AppColors.grayDarkest,
+                                textColor: isDarkMode
+                                    ? AppColors.gray
+                                    : AppColors.grayDarkest,
                               ),
                             ],
                           ),

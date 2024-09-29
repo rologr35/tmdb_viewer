@@ -107,7 +107,7 @@ class MovieDetailsController extends BaseController with LoadingHandler, Message
       totalPagesReviews = res.value.totalPages;
       reviews.value = res.value.results;
     } else {
-      reviews.value.clear();
+      reviews.value = [];
     }
     if(!refreshing) isLoadingReviews.value = false;
   }

@@ -73,7 +73,7 @@ class PopularController extends BaseController with LoadingHandler {
           movie: e))
           .toList();
     } else {
-      popularMovies.value.clear();
+      popularMovies.value = [];
     }
     if(!refreshing) isLoading = false;
   }

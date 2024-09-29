@@ -168,7 +168,7 @@ class _TrendingMoviesState extends State<TrendingMoviesWidget> {
                         TXTextWidget(
                           widget.movies[index].title,
                           fontSize: 16,
-                          fontWeight: FontWeight.w600,
+                          fontWeight: FontWeight.bold,
                           textColor: AppColors.white,
                         ),
                         TXTextWidget(
