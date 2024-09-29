@@ -6,7 +6,7 @@ import 'package:tmdb_viewer/utils/extensions.dart';
 
 class AppColors {
 
-  static const primary = Color(0xFF805BE7);
+  static const primary = Color(0xFF11B4DF);
 
   static const blue = Color(0xFF2A7CFF);
   static final grayElementsDark = grayDarkestPlus.darken(.15);
