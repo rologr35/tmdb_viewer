@@ -28,6 +28,7 @@ class HomePage extends GetResponsiveView<HomeController> {
     ];
 
     return Obx(() => TXNoAppbarWidget(
+        safeArea: false,
         body: GetRouterOutlet(
           initialRoute: AppPages.instance.movies,
           anchorRoute: AppPages.instance.homeRoot,

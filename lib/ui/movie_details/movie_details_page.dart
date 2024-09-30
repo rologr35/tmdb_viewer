@@ -28,6 +28,7 @@ class MovieDetailsPage extends GetResponsiveView<MovieDetailsController> {
     return PopScope(
         canPop: false,
         child: Obx(() => TXStandardAppbarWidget(
+            safeArea: false,
             title: controller.movie.value.movie.title,
             body: Column(
               children: [
